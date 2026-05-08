@@ -1,0 +1,89 @@
+* {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+.root {
+    -fx-background-image: url('bg.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+.glass-panel {
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+.tab-pane {
+    -fx-background-color: transparent;
+}
+.tab-pane .tab-header-area {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 15 0;
+}
+.tab-pane .headers-region {
+    -fx-background-color: transparent;
+}
+.tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+    -fx-opacity: 0;
+}
+.tab-pane .tab {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #ffb3d9;
+    -fx-border-width: 1.5;
+    -fx-padding: 6 20 6 20;
+    -fx-cursor: hand;
+}
+.tab-pane .tab:selected {
+    -fx-background-color: rgba(255, 182, 193, 0.95);
+    -fx-border-color: #ff99cc;
+    -fx-effect: dropshadow(gaussian, rgba(255, 153, 204, 0.6), 8, 0, 0, 2);
+}
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #555555;
+    -fx-font-weight: bold;
+}
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #ffffff;
+}
+.big-block {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,230,240,0.9));
+    -fx-border-color: #ffb3d9;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+.block-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: #666666;
+    -fx-font-size: 13px;
+}
+.info-grid {
+    -fx-background-color: transparent;
+}
+.grid-label {
+    -fx-text-fill: #555555;
+}
+.grid-value {
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+}
+.btn-wibu {
+    -fx-background-color: rgba(255, 182, 193, 0.95);
+    -fx-border-color: #ff99cc;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10 30;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-text-fill: #ffffff;
+}
+.btn-wibu:hover {
+    -fx-background-color: #ff99cc;
+}
+.log-console {
+    -fx-control-inner-background: rgba(255, 255, 255, 0.6);
+    -fx-font-family: "Consolas", monospace;
+    -fx-border-color: #ffb3d9;
+}
