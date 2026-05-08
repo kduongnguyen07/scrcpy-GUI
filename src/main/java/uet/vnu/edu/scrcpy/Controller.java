@@ -20,7 +20,7 @@ public class Controller {
     @FXML private CheckBox audio_toggle, always_on_top, stay_awake;
     @FXML private Label label_lens, lbl_status, lbl_bitrate_display;
     @FXML private TextArea log_area;
-
+    @FXML private ComboBox<String> orientation_list;
     private Process current_process;
 
     @FXML
@@ -69,6 +69,8 @@ public class Controller {
 
         fps_list.getItems().addAll("30", "60", "120");
         fps_list.getSelectionModel().select("60");
+        orientation_list.getItems().addAll("0", "90", "180", "270");
+        orientation_list.getSelectionModel().select("0"); // Mặc định là không xoay
     }
 
     private void update_theme() {
@@ -106,21 +108,28 @@ public class Controller {
 
     @FXML
     private void handle_start() {
-        List<String> res = new ArrayList<>(Arrays.asList("bin/scrcpy.exe"));
+        List<String> res = new ArrayList<>(Arrays.asList("bin/scrcpy.exe")); //
+
         if (src_type.getValue().contains("Camera")) {
             res.add("--video-source=camera");
             res.add("--camera-id=" + cam_list.getValue().split(" ")[0]);
             if (!res_list.getValue().equals("Default")) res.add("--camera-size=" + res_list.getValue());
             res.add("--camera-fps=" + fps_list.getValue());
+
+            // Thêm tham số xoay hướng ở đây
+            res.add("--capture-orientation=" + orientation_list.getValue());
         } else {
             res.add("--video-source=display");
             res.add("--max-fps=" + fps_list.getValue());
+            // Display cũng có thể xoay nếu mày thích
+            res.add("--capture-orientation=" + orientation_list.getValue());
         }
+
         res.add("--video-bit-rate=" + bitrate_input.getText() + "M");
         if (!audio_toggle.isSelected()) res.add("--no-audio");
         if (always_on_top.isSelected()) res.add("--always-on-top");
 
-        execute(res);
+        execute(res); //
     }
 
     private void execute(List<String> cmd) {

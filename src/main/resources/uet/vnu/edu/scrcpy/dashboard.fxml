@@ -41,20 +41,27 @@
             <TabPane tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: transparent;">
                 <tabs>
                     <Tab text="Capture Settings">
-                        <GridPane hgap="20" vgap="15" style="-fx-padding: 15 0 0 0;">
+                        <GridPane hgap="20" vgap="12" style="-fx-padding: 15 0 0 0;">
                             <Label text="Source:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="grid-label"/>
                             <ComboBox fx:id="src_type" prefWidth="210" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
                             <Label fx:id="label_lens" text="Lens:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="grid-label"/>
                             <ComboBox fx:id="cam_list" prefWidth="210" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
                             <Label text="Resolution:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="grid-label"/>
                             <ComboBox fx:id="res_list" prefWidth="210" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
                             <Label text="Bitrate:" GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="grid-label"/>
                             <HBox spacing="10" alignment="CENTER_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="3">
                                 <Slider fx:id="bitrate_slider" min="1" max="100" value="8" prefWidth="110"/>
                                 <TextField fx:id="bitrate_input" text="8" prefWidth="50" alignment="CENTER"/>
                             </HBox>
+
                             <Label text="FPS:" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="grid-label"/>
                             <ComboBox fx:id="fps_list" prefWidth="170" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                            <Label text="Orientation:" GridPane.rowIndex="2" GridPane.columnIndex="2" styleClass="grid-label"/>
+                            <ComboBox fx:id="orientation_list" prefWidth="170" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
                         </GridPane>
                     </Tab>
                     <Tab text="Theme Personalization">
@@ -76,6 +83,7 @@
                 <CheckBox fx:id="audio_toggle" text="Audio" selected="true" styleClass="grid-label"/>
                 <CheckBox fx:id="always_on_top" text="On Top" styleClass="grid-label"/>
                 <CheckBox fx:id="stay_awake" text="No Sleep" styleClass="grid-label"/>
+                <CheckBox fx:id="record_toggle" text="Record" styleClass="grid-label"/>
                 <Region HBox.hgrow="ALWAYS"/>
                 <Button fx:id="btn_start" onAction="#handle_start" text="▶ LAUNCH" styleClass="btn-wibu"/>
                 <Button fx:id="btn_stop" onAction="#handle_stop" text="⏹ STOP" styleClass="btn-wibu"/>
