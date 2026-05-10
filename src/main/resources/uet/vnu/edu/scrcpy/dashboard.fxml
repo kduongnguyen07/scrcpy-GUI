@@ -3,93 +3,191 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane fx:id="root_pane" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uet.vnu.edu.scrcpy.Controller">
+<BorderPane fx:id="root_pane" stylesheets="@theme.css"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="uet.vnu.edu.scrcpy.Controller">
     <left>
-        <VBox fx:id="main_panel" spacing="15" styleClass="glass-panel" prefWidth="680" BorderPane.alignment="TOP_LEFT">
-            <BorderPane.margin>
-                <Insets top="15" left="15" bottom="15" right="15"/>
-            </BorderPane.margin>
-            <padding>
-                <Insets top="15" right="15" bottom="15" left="15"/>
-            </padding>
+        <VBox fx:id="main_panel" spacing="12" styleClass="glass-panel" prefWidth="860"
+              BorderPane.alignment="TOP_LEFT">
+            <BorderPane.margin><Insets top="14" left="14" bottom="14" right="14"/></BorderPane.margin>
+            <padding><Insets top="16" right="18" bottom="16" left="18"/></padding>
 
-            <HBox spacing="15">
-                <VBox styleClass="big-block" alignment="CENTER" prefWidth="140" prefHeight="110" spacing="5">
-                    <Label text="Stream Status" styleClass="block-title"/>
-                    <Label fx:id="lbl_status" text="READY" style="-fx-font-size: 26px; -fx-font-weight: 900; -fx-text-fill: #3399ff;"/>
+            <!-- ═══════════════════════════════════════════
+                 HEADER: Status pill + device info text
+            ═══════════════════════════════════════════ -->
+            <HBox spacing="18" alignment="CENTER_LEFT">
+
+                <!-- Status + bitrate pill -->
+                <VBox styleClass="status-pill" alignment="CENTER" spacing="2" minWidth="130">
+                    <HBox alignment="CENTER" spacing="8">
+                        <Label fx:id="lbl_status" text="READY" styleClass="status-value"/>
+                    </HBox>
+                    <Label fx:id="lbl_bitrate_display" text="8 Mbps" styleClass="status-sub"/>
                 </VBox>
 
-                <VBox styleClass="big-block" alignment="CENTER" prefWidth="140" prefHeight="110" spacing="5">
-                    <Label text="Current Bitrate" styleClass="block-title"/>
-                    <Label fx:id="lbl_bitrate_display" text="8 Mbps" style="-fx-font-size: 26px; -fx-font-weight: 900; -fx-text-fill: #3399ff;"/>
+                <!-- Divider -->
+                <Separator orientation="VERTICAL" prefHeight="50"/>
+
+                <!-- Device info as plain text lines -->
+                <VBox spacing="3" HBox.hgrow="ALWAYS">
+                    <Label text="Scrcpy v3.3.4 · ADB / Custom Driver" styleClass="info-line-dim"/>
+                    <HBox spacing="6" alignment="CENTER_LEFT">
+                        <Label text="Device:" styleClass="info-line-dim"/>
+                        <Label fx:id="lbl_device_model" text="Detecting..." styleClass="info-line-bold"/>
+                    </HBox>
+                    <HBox spacing="16" alignment="CENTER_LEFT">
+                        <Label text="🔋" styleClass="info-icon"/>
+                        <Label fx:id="lbl_battery" text="--%" styleClass="info-stat-green"/>
+                        <Label text="🌡" styleClass="info-icon"/>
+                        <Label fx:id="lbl_cpu_temp" text="-- °C" styleClass="info-stat-orange"/>
+                        <Label text="💾" styleClass="info-icon"/>
+                        <Label fx:id="lbl_ram_usage" text="-- MB" styleClass="info-stat-purple"/>
+                    </HBox>
                 </VBox>
 
-                <GridPane hgap="15" vgap="8" HBox.hgrow="ALWAYS" styleClass="info-grid">
-                    <columnConstraints>
-                        <ColumnConstraints minWidth="100" halignment="RIGHT"/>
-                        <ColumnConstraints minWidth="150" hgrow="ALWAYS"/>
-                    </columnConstraints>
-                    <Label text="Firmware:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="grid-label"/>
-                    <Label text="Scrcpy v3.3.4 (Custom Core)" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="grid-value"/>
-                    <Label text="Interface:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="grid-label"/>
-                    <Label text="ADB / Custom Driver" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="grid-value"/>
-                    <Label text="Device Model:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="grid-label"/>
-                    <Label text="Vivo X200s (Logical)" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="grid-value"/>
-                </GridPane>
             </HBox>
 
-            <TabPane tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: transparent;">
+            <Separator/>
+
+            <!-- ═══════════════════════════════════════════
+                 TABS
+            ═══════════════════════════════════════════ -->
+            <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="NEVER"
+                     style="-fx-background-color: transparent;">
                 <tabs>
-                    <Tab text="Capture Settings">
-                        <GridPane hgap="20" vgap="12" style="-fx-padding: 15 0 0 0;">
-                            <Label text="Source:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="grid-label"/>
-                            <ComboBox fx:id="src_type" prefWidth="210" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                            <Label fx:id="label_lens" text="Lens:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="grid-label"/>
-                            <ComboBox fx:id="cam_list" prefWidth="210" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <!-- ─── Capture Settings ─── -->
+                    <Tab text="⚙ Capture">
+                        <GridPane hgap="20" vgap="11" style="-fx-padding: 14 0 4 0;">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="90" halignment="RIGHT"/>
+                                <ColumnConstraints prefWidth="200" hgrow="SOMETIMES"/>
+                                <ColumnConstraints minWidth="80" halignment="RIGHT"/>
+                                <ColumnConstraints prefWidth="200" hgrow="SOMETIMES"/>
+                            </columnConstraints>
 
-                            <Label text="Resolution:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="grid-label"/>
-                            <ComboBox fx:id="res_list" prefWidth="210" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            <Label text="Source" styleClass="grid-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="src_type" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
 
-                            <Label text="Bitrate:" GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="grid-label"/>
-                            <HBox spacing="10" alignment="CENTER_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="3">
-                                <Slider fx:id="bitrate_slider" min="1" max="100" value="8" prefWidth="110"/>
-                                <TextField fx:id="bitrate_input" text="8" prefWidth="50" alignment="CENTER"/>
+                            <Label text="Bitrate" styleClass="grid-label" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                            <HBox spacing="8" alignment="CENTER_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="3">
+                                <Slider fx:id="bitrate_slider" min="1" max="100" value="8" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <TextField fx:id="bitrate_input" text="8" prefWidth="46" alignment="CENTER" styleClass="compact-input"/>
                             </HBox>
 
-                            <Label text="FPS:" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="grid-label"/>
-                            <ComboBox fx:id="fps_list" prefWidth="170" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                            <Label fx:id="label_lens" text="Lens" styleClass="grid-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="cam_list" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
 
-                            <Label text="Orientation:" GridPane.rowIndex="2" GridPane.columnIndex="2" styleClass="grid-label"/>
-                            <ComboBox fx:id="orientation_list" prefWidth="170" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                            <Label text="FPS" styleClass="grid-label" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                            <ComboBox fx:id="fps_list" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS"/>
+
+                            <Label text="Resolution" styleClass="grid-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="res_list" maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+
+                            <Label text="Orientation" styleClass="grid-label" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                            <ComboBox fx:id="orientation_list" maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS"/>
                         </GridPane>
                     </Tab>
-                    <Tab text="Theme Personalization">
-                        <GridPane hgap="20" vgap="15" style="-fx-padding: 15 0 0 0;">
-                            <Label text="Corner Radius:" styleClass="grid-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <Slider fx:id="radius_slider" min="0" max="50" value="10" prefWidth="200" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                            <Label text="Button Color:" styleClass="grid-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <ColorPicker fx:id="btn_color_picker" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                            <Label text="Panel Opacity:" styleClass="grid-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <Slider fx:id="opacity_slider" min="0.1" max="1.0" value="0.85" prefWidth="200" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                            <Label text="Custom Waifu:" styleClass="grid-label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <Button onAction="#change_waifu" text="Browse Image" styleClass="btn-wibu" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <!-- ─── Device Controls ─── -->
+                    <Tab text="🎮 Controls">
+                        <VBox spacing="10" style="-fx-padding: 14 0 4 0;">
+
+                            <!-- Navigation row -->
+                            <Label text="Navigation" styleClass="ctrl-section-label"/>
+                            <HBox spacing="8">
+                                <Button onAction="#act_home"   text="🏠 Home"    styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_back"   text="🔙 Back"    styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_switch" text="🗂 Recents" styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            </HBox>
+
+                            <!-- Volume / Power row -->
+                            <Label text="Hardware Keys" styleClass="ctrl-section-label"/>
+                            <HBox spacing="8">
+                                <Button onAction="#act_vol_up"   text="🔊 Vol +"  styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_vol_down" text="🔉 Vol −"  styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_power"    text="⏻ Power"   styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            </HBox>
+
+                            <!-- UI / Screen row -->
+                            <Label text="Screen &amp; Notifications" styleClass="ctrl-section-label"/>
+                            <HBox spacing="8">
+                                <Button onAction="#act_rotate"        text="🔄 Rotate"        styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_expand_notif"  text="🔔 Notifications" styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_collapse"      text="⬆ Collapse"       styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#handle_screenshot" text="📸 Screenshot"    styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            </HBox>
+
+                        </VBox>
+                    </Tab>
+
+                    <!-- ─── Theme & UI ─── -->
+                    <Tab text="🎨 Theme">
+                        <GridPane hgap="20" vgap="14" style="-fx-padding: 14 0 4 0;">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="110" halignment="RIGHT"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+
+                            <Label text="Corner Radius" styleClass="grid-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <Slider fx:id="radius_slider" min="0" max="50" value="10" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                            <Label text="Button Color" styleClass="grid-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <ColorPicker fx:id="btn_color_picker" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="Panel Opacity" styleClass="grid-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <Slider fx:id="opacity_slider" min="0.1" max="1.0" value="0.85" maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                            <Label text="Background" styleClass="grid-label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <Button onAction="#change_waifu" text="Browse Image…" styleClass="btn-ctrl" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
                         </GridPane>
                     </Tab>
+
                 </tabs>
             </TabPane>
 
-            <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 15; -fx-background-color: rgba(255,255,255,0.4); -fx-border-color: #cccccc; -fx-border-radius: 5;">
-                <CheckBox fx:id="audio_toggle" text="Audio" selected="true" styleClass="grid-label"/>
-                <CheckBox fx:id="always_on_top" text="On Top" styleClass="grid-label"/>
-                <CheckBox fx:id="stay_awake" text="No Sleep" styleClass="grid-label"/>
-                <CheckBox fx:id="record_toggle" text="Record" styleClass="grid-label"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Button fx:id="btn_start" onAction="#handle_start" text="▶ LAUNCH" styleClass="btn-wibu"/>
-                <Button fx:id="btn_stop" onAction="#handle_stop" text="⏹ STOP" styleClass="btn-wibu"/>
-            </HBox>
+            <!-- ═══════════════════════════════════════════
+                 BOTTOM BAR: checkboxes + action buttons
+            ═══════════════════════════════════════════ -->
+            <VBox spacing="10" styleClass="bottom-bar">
 
-            <TextArea fx:id="log_area" VBox.vgrow="ALWAYS" editable="false" styleClass="log-console"/>
+                <!-- Row 1: Toggles + Action buttons -->
+                <HBox spacing="0" alignment="CENTER_LEFT">
+                    <!-- Toggles -->
+                    <HBox spacing="16" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                        <CheckBox fx:id="audio_toggle"  text="Audio"    selected="true" styleClass="grid-label"/>
+                        <CheckBox fx:id="always_on_top" text="On Top"                   styleClass="grid-label"/>
+                        <CheckBox fx:id="stay_awake"    text="No Sleep"                 styleClass="grid-label"/>
+                        <CheckBox fx:id="record_toggle" text="Record"                   styleClass="grid-label"/>
+                    </HBox>
+
+                    <!-- Action buttons -->
+                    <HBox spacing="10" alignment="CENTER_RIGHT">
+                        <!-- NÚT TÀNG HÌNH MỚI THÊM -->
+                        <Button onAction="#act_stealth" text="👻 Stealth" styleClass="btn-action-ghost"/>
+
+                        <Button fx:id="btn_toggle_screen" onAction="#toggle_screen" text="⏾ Screen"  styleClass="btn-action-ghost"/>
+                        <Button fx:id="btn_start"         onAction="#handle_start"  text="▶ Launch"  styleClass="btn-action-primary"/>
+                        <Button fx:id="btn_stop"          onAction="#handle_stop"   text="⏹ Stop"    styleClass="btn-action-stop"/>
+                    </HBox>
+                </HBox>
+
+                <!-- Row 2: Virtual Cam toggle + mode selector -->
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <CheckBox fx:id="vcam_toggle" text="🎥 Virtual Cam" styleClass="grid-label"/>
+                    <ComboBox fx:id="vcam_mode" prefWidth="200" styleClass="combo-box"/>
+                    <Label text="(OBS phải đang Start Virtual Camera trước)" styleClass="info-line-dim"/>
+                </HBox>
+
+            </VBox>
+
+            <!-- ═══════════════════════════════════════════
+                 LOG CONSOLE
+            ═══════════════════════════════════════════ -->
+            <TextArea fx:id="log_area" VBox.vgrow="ALWAYS" editable="false"
+                      styleClass="log-console" prefHeight="160"/>
+
         </VBox>
     </left>
 </BorderPane>

@@ -21,7 +21,7 @@ public class Main extends Application {
             System.out.println("Loi nap icon: " + e.getMessage());
         }
 
-        stage.setScene(new Scene(res, 1100, 650));
+        stage.setScene(new Scene(res, 1100, 800));
         stage.show();
     }
 

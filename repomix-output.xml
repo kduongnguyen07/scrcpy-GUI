@@ -1,0 +1,2442 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+-
+.gitignore
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+bin/adb.exe
+bin/AdbWinApi.dll
+bin/AdbWinUsbApi.dll
+bin/avcodec-61.dll
+bin/avformat-61.dll
+bin/avutil-59.dll
+bin/ffmpeg.exe
+bin/icon.png
+bin/ID
+bin/libusb-1.0.dll
+bin/mediamtx.exe
+bin/open_a_terminal_here.bat
+bin/Processing.NDI.Lib.x64.dll
+bin/scrcpy-console.bat
+bin/scrcpy-noconsole.vbs
+bin/scrcpy-server
+bin/scrcpy.exe
+bin/SDL2.dll
+bin/swresample-5.dll
+bin/swscale-8.dll
+build.bat
+icon.ico
+mvnw
+mvnw.cmd
+pom.xml
+src/main/java/module-info.java
+src/main/java/uet/vnu/edu/scrcpy/Controller.java
+src/main/java/uet/vnu/edu/scrcpy/Main.java
+src/main/java/uet/vnu/edu/scrcpy/OBSController.java
+src/main/resources/uet/vnu/edu/scrcpy/bg.png
+src/main/resources/uet/vnu/edu/scrcpy/dashboard.fxml
+src/main/resources/uet/vnu/edu/scrcpy/icon.jpg
+src/main/resources/uet/vnu/edu/scrcpy/theme.css
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".gitignore">
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+.kotlin
+
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+</file>
+
+<file path=".mvn/wrapper/maven-wrapper.properties">
+distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.5/apache-maven-3.8.5-bin.zip
+wrapperUrl=https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.3.2/maven-wrapper-3.3.2.jar
+</file>
+
+<file path="bin/ID">
+[FAIL] - 5 khong kha dung hoac bi khoa.
+</file>
+
+<file path="bin/open_a_terminal_here.bat">
+@cmd
+</file>
+
+<file path="bin/scrcpy-console.bat">
+@echo off
+scrcpy.exe --pause-on-exit=if-error %*
+</file>
+
+<file path="bin/scrcpy-noconsole.vbs">
+strCommand = "cmd /c scrcpy.exe"
+
+For Each Arg In WScript.Arguments
+    strCommand = strCommand & " """ & replace(Arg, """", """""""""") & """"
+Next
+
+CreateObject("Wscript.Shell").Run strCommand, 0, false
+</file>
+
+<file path="build.bat">
+@echo off
+setlocal enabledelayedexpansion
+
+echo [1/4] Giet sach tien trinh dang ket ngam de khong bi khoa file...
+taskkill /F /IM CrystalScrcpy.exe /T >nul 2>&1
+taskkill /F /IM java.exe /T >nul 2>&1
+taskkill /F /IM javaw.exe /T >nul 2>&1
+
+echo [2/4] Xoa thu muc Release_EXE cu...
+if exist "target\Release_EXE" rmdir /s /q "target\Release_EXE"
+
+echo [3/4] Build Jlink de tao Custom JRE...
+call mvn clean javafx:jlink
+
+if %ERRORLEVEL% NEQ 0 (
+    echo [ERR] Build jlink loi. Kiem tra lai pom.xml!
+    pause
+    exit /b
+)
+
+echo [4/4] Dong goi thanh file .exe bang jpackage...
+jpackage --type app-image ^
+  --name "CrystalScrcpy" ^
+  --module uet.vnu.edu.scrcpy/uet.vnu.edu.scrcpy.Main ^
+  --runtime-image target/CrystalScrcpy_Portable ^
+  --dest target/Release_EXE ^
+  --icon icon.ico
+
+if %ERRORLEVEL% NEQ 0 (
+    echo [ERR] Dong goi jpackage loi! Kiem tra lai xem file icon.ico co o dung cho chua.
+    pause
+    exit /b
+)
+
+echo.
+echo ========================================================
+echo THANH CONG MANH ME!
+echo App cua may dang nam o: target\Release_EXE\CrystalScrcpy
+echo ========================================================
+pause
+</file>
+
+<file path="mvnw">
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#    https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Maven Start Up Batch script
+#
+# Required ENV vars:
+# ------------------
+#   JAVA_HOME - location of a JDK home dir
+#
+# Optional ENV vars
+# -----------------
+#   M2_HOME - location of maven2's installed home dir
+#   MAVEN_OPTS - parameters passed to the Java VM when running Maven
+#     e.g. to debug Maven itself, use
+#       set MAVEN_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000
+#   MAVEN_SKIP_RC - flag to disable loading of mavenrc files
+# ----------------------------------------------------------------------------
+
+if [ -z "$MAVEN_SKIP_RC" ] ; then
+
+  if [ -f /usr/local/etc/mavenrc ] ; then
+    . /usr/local/etc/mavenrc
+  fi
+
+  if [ -f /etc/mavenrc ] ; then
+    . /etc/mavenrc
+  fi
+
+  if [ -f "$HOME/.mavenrc" ] ; then
+    . "$HOME/.mavenrc"
+  fi
+
+fi
+
+# OS specific support.  $var _must_ be set to either true or false.
+cygwin=false;
+darwin=false;
+mingw=false
+case "`uname`" in
+  CYGWIN*) cygwin=true ;;
+  MINGW*) mingw=true;;
+  Darwin*) darwin=true
+    # Use /usr/libexec/java_home if available, otherwise fall back to /Library/Java/Home
+    # See https://developer.apple.com/library/mac/qa/qa1170/_index.html
+    if [ -z "$JAVA_HOME" ]; then
+      if [ -x "/usr/libexec/java_home" ]; then
+        export JAVA_HOME="`/usr/libexec/java_home`"
+      else
+        export JAVA_HOME="/Library/Java/Home"
+      fi
+    fi
+    ;;
+esac
+
+if [ -z "$JAVA_HOME" ] ; then
+  if [ -r /etc/gentoo-release ] ; then
+    JAVA_HOME=`java-config --jre-home`
+  fi
+fi
+
+if [ -z "$M2_HOME" ] ; then
+  ## resolve links - $0 may be a link to maven's home
+  PRG="$0"
+
+  # need this for relative symlinks
+  while [ -h "$PRG" ] ; do
+    ls=`ls -ld "$PRG"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+      PRG="$link"
+    else
+      PRG="`dirname "$PRG"`/$link"
+    fi
+  done
+
+  saveddir=`pwd`
+
+  M2_HOME=`dirname "$PRG"`/..
+
+  # make it fully qualified
+  M2_HOME=`cd "$M2_HOME" && pwd`
+
+  cd "$saveddir"
+  # echo Using m2 at $M2_HOME
+fi
+
+# For Cygwin, ensure paths are in UNIX format before anything is touched
+if $cygwin ; then
+  [ -n "$M2_HOME" ] &&
+    M2_HOME=`cygpath --unix "$M2_HOME"`
+  [ -n "$JAVA_HOME" ] &&
+    JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
+  [ -n "$CLASSPATH" ] &&
+    CLASSPATH=`cygpath --path --unix "$CLASSPATH"`
+fi
+
+# For Mingw, ensure paths are in UNIX format before anything is touched
+if $mingw ; then
+  [ -n "$M2_HOME" ] &&
+    M2_HOME="`(cd "$M2_HOME"; pwd)`"
+  [ -n "$JAVA_HOME" ] &&
+    JAVA_HOME="`(cd "$JAVA_HOME"; pwd)`"
+fi
+
+if [ -z "$JAVA_HOME" ]; then
+  javaExecutable="`which javac`"
+  if [ -n "$javaExecutable" ] && ! [ "`expr \"$javaExecutable\" : '\([^ ]*\)'`" = "no" ]; then
+    # readlink(1) is not available as standard on Solaris 10.
+    readLink=`which readlink`
+    if [ ! `expr "$readLink" : '\([^ ]*\)'` = "no" ]; then
+      if $darwin ; then
+        javaHome="`dirname \"$javaExecutable\"`"
+        javaExecutable="`cd \"$javaHome\" && pwd -P`/javac"
+      else
+        javaExecutable="`readlink -f \"$javaExecutable\"`"
+      fi
+      javaHome="`dirname \"$javaExecutable\"`"
+      javaHome=`expr "$javaHome" : '\(.*\)/bin'`
+      JAVA_HOME="$javaHome"
+      export JAVA_HOME
+    fi
+  fi
+fi
+
+if [ -z "$JAVACMD" ] ; then
+  if [ -n "$JAVA_HOME"  ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
+      # IBM's JDK on AIX uses strange locations for the executables
+      JAVACMD="$JAVA_HOME/jre/sh/java"
+    else
+      JAVACMD="$JAVA_HOME/bin/java"
+    fi
+  else
+    JAVACMD="`\\unset -f command; \\command -v java`"
+  fi
+fi
+
+if [ ! -x "$JAVACMD" ] ; then
+  echo "Error: JAVA_HOME is not defined correctly." >&2
+  echo "  We cannot execute $JAVACMD" >&2
+  exit 1
+fi
+
+if [ -z "$JAVA_HOME" ] ; then
+  echo "Warning: JAVA_HOME environment variable is not set."
+fi
+
+CLASSWORLDS_LAUNCHER=org.codehaus.plexus.classworlds.launcher.Launcher
+
+# traverses directory structure from process work directory to filesystem root
+# first directory with .mvn subdirectory is considered project base directory
+find_maven_basedir() {
+
+  if [ -z "$1" ]
+  then
+    echo "Path not specified to find_maven_basedir"
+    return 1
+  fi
+
+  basedir="$1"
+  wdir="$1"
+  while [ "$wdir" != '/' ] ; do
+    if [ -d "$wdir"/.mvn ] ; then
+      basedir=$wdir
+      break
+    fi
+    # workaround for JBEAP-8937 (on Solaris 10/Sparc)
+    if [ -d "${wdir}" ]; then
+      wdir=`cd "$wdir/.."; pwd`
+    fi
+    # end of workaround
+  done
+  echo "${basedir}"
+}
+
+# concatenates all lines of a file
+concat_lines() {
+  if [ -f "$1" ]; then
+    echo "$(tr -s '\n' ' ' < "$1")"
+  fi
+}
+
+BASE_DIR=`find_maven_basedir "$(pwd)"`
+if [ -z "$BASE_DIR" ]; then
+  exit 1;
+fi
+
+##########################################################################################
+# Extension to allow automatically downloading the maven-wrapper.jar from Maven-central
+# This allows using the maven wrapper in projects that prohibit checking in binary data.
+##########################################################################################
+if [ -r "$BASE_DIR/.mvn/wrapper/maven-wrapper.jar" ]; then
+    if [ "$MVNW_VERBOSE" = true ]; then
+      echo "Found .mvn/wrapper/maven-wrapper.jar"
+    fi
+else
+    if [ "$MVNW_VERBOSE" = true ]; then
+      echo "Couldn't find .mvn/wrapper/maven-wrapper.jar, downloading it ..."
+    fi
+    if [ -n "$MVNW_REPOURL" ]; then
+      jarUrl="$MVNW_REPOURL/org/apache/maven/wrapper/maven-wrapper/3.1.0/maven-wrapper-3.1.0.jar"
+    else
+      jarUrl="https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.1.0/maven-wrapper-3.1.0.jar"
+    fi
+    while IFS="=" read key value; do
+      case "$key" in (wrapperUrl) jarUrl="$value"; break ;;
+      esac
+    done < "$BASE_DIR/.mvn/wrapper/maven-wrapper.properties"
+    if [ "$MVNW_VERBOSE" = true ]; then
+      echo "Downloading from: $jarUrl"
+    fi
+    wrapperJarPath="$BASE_DIR/.mvn/wrapper/maven-wrapper.jar"
+    if $cygwin; then
+      wrapperJarPath=`cygpath --path --windows "$wrapperJarPath"`
+    fi
+
+    if command -v wget > /dev/null; then
+        if [ "$MVNW_VERBOSE" = true ]; then
+          echo "Found wget ... using wget"
+        fi
+        if [ -z "$MVNW_USERNAME" ] || [ -z "$MVNW_PASSWORD" ]; then
+            wget "$jarUrl" -O "$wrapperJarPath" || rm -f "$wrapperJarPath"
+        else
+            wget --http-user=$MVNW_USERNAME --http-password=$MVNW_PASSWORD "$jarUrl" -O "$wrapperJarPath" || rm -f "$wrapperJarPath"
+        fi
+    elif command -v curl > /dev/null; then
+        if [ "$MVNW_VERBOSE" = true ]; then
+          echo "Found curl ... using curl"
+        fi
+        if [ -z "$MVNW_USERNAME" ] || [ -z "$MVNW_PASSWORD" ]; then
+            curl -o "$wrapperJarPath" "$jarUrl" -f
+        else
+            curl --user $MVNW_USERNAME:$MVNW_PASSWORD -o "$wrapperJarPath" "$jarUrl" -f
+        fi
+
+    else
+        if [ "$MVNW_VERBOSE" = true ]; then
+          echo "Falling back to using Java to download"
+        fi
+        javaClass="$BASE_DIR/.mvn/wrapper/MavenWrapperDownloader.java"
+        # For Cygwin, switch paths to Windows format before running javac
+        if $cygwin; then
+          javaClass=`cygpath --path --windows "$javaClass"`
+        fi
+        if [ -e "$javaClass" ]; then
+            if [ ! -e "$BASE_DIR/.mvn/wrapper/MavenWrapperDownloader.class" ]; then
+                if [ "$MVNW_VERBOSE" = true ]; then
+                  echo " - Compiling MavenWrapperDownloader.java ..."
+                fi
+                # Compiling the Java class
+                ("$JAVA_HOME/bin/javac" "$javaClass")
+            fi
+            if [ -e "$BASE_DIR/.mvn/wrapper/MavenWrapperDownloader.class" ]; then
+                # Running the downloader
+                if [ "$MVNW_VERBOSE" = true ]; then
+                  echo " - Running MavenWrapperDownloader.java ..."
+                fi
+                ("$JAVA_HOME/bin/java" -cp .mvn/wrapper MavenWrapperDownloader "$MAVEN_PROJECTBASEDIR")
+            fi
+        fi
+    fi
+fi
+##########################################################################################
+# End of extension
+##########################################################################################
+
+export MAVEN_PROJECTBASEDIR=${MAVEN_BASEDIR:-"$BASE_DIR"}
+if [ "$MVNW_VERBOSE" = true ]; then
+  echo $MAVEN_PROJECTBASEDIR
+fi
+MAVEN_OPTS="$(concat_lines "$MAVEN_PROJECTBASEDIR/.mvn/jvm.config") $MAVEN_OPTS"
+
+# For Cygwin, switch paths to Windows format before running java
+if $cygwin; then
+  [ -n "$M2_HOME" ] &&
+    M2_HOME=`cygpath --path --windows "$M2_HOME"`
+  [ -n "$JAVA_HOME" ] &&
+    JAVA_HOME=`cygpath --path --windows "$JAVA_HOME"`
+  [ -n "$CLASSPATH" ] &&
+    CLASSPATH=`cygpath --path --windows "$CLASSPATH"`
+  [ -n "$MAVEN_PROJECTBASEDIR" ] &&
+    MAVEN_PROJECTBASEDIR=`cygpath --path --windows "$MAVEN_PROJECTBASEDIR"`
+fi
+
+# Provide a "standardized" way to retrieve the CLI args that will
+# work with both Windows and non-Windows executions.
+MAVEN_CMD_LINE_ARGS="$MAVEN_CONFIG $@"
+export MAVEN_CMD_LINE_ARGS
+
+WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
+
+exec "$JAVACMD" \
+  $MAVEN_OPTS \
+  $MAVEN_DEBUG_OPTS \
+  -classpath "$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar" \
+  "-Dmaven.home=${M2_HOME}" \
+  "-Dmaven.multiModuleProjectDirectory=${MAVEN_PROJECTBASEDIR}" \
+  ${WRAPPER_LAUNCHER} $MAVEN_CONFIG "$@"
+</file>
+
+<file path="mvnw.cmd">
+@REM ----------------------------------------------------------------------------
+@REM Licensed to the Apache Software Foundation (ASF) under one
+@REM or more contributor license agreements.  See the NOTICE file
+@REM distributed with this work for additional information
+@REM regarding copyright ownership.  The ASF licenses this file
+@REM to you under the Apache License, Version 2.0 (the
+@REM "License"); you may not use this file except in compliance
+@REM with the License.  You may obtain a copy of the License at
+@REM
+@REM    https://www.apache.org/licenses/LICENSE-2.0
+@REM
+@REM Unless required by applicable law or agreed to in writing,
+@REM software distributed under the License is distributed on an
+@REM "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+@REM KIND, either express or implied.  See the License for the
+@REM specific language governing permissions and limitations
+@REM under the License.
+@REM ----------------------------------------------------------------------------
+
+@REM ----------------------------------------------------------------------------
+@REM Maven Start Up Batch script
+@REM
+@REM Required ENV vars:
+@REM JAVA_HOME - location of a JDK home dir
+@REM
+@REM Optional ENV vars
+@REM M2_HOME - location of maven2's installed home dir
+@REM MAVEN_BATCH_ECHO - set to 'on' to enable the echoing of the batch commands
+@REM MAVEN_BATCH_PAUSE - set to 'on' to wait for a keystroke before ending
+@REM MAVEN_OPTS - parameters passed to the Java VM when running Maven
+@REM     e.g. to debug Maven itself, use
+@REM set MAVEN_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000
+@REM MAVEN_SKIP_RC - flag to disable loading of mavenrc files
+@REM ----------------------------------------------------------------------------
+
+@REM Begin all REM lines with '@' in case MAVEN_BATCH_ECHO is 'on'
+@echo off
+@REM set title of command window
+title %0
+@REM enable echoing by setting MAVEN_BATCH_ECHO to 'on'
+@if "%MAVEN_BATCH_ECHO%" == "on"  echo %MAVEN_BATCH_ECHO%
+
+@REM set %HOME% to equivalent of $HOME
+if "%HOME%" == "" (set "HOME=%HOMEDRIVE%%HOMEPATH%")
+
+@REM Execute a user defined script before this one
+if not "%MAVEN_SKIP_RC%" == "" goto skipRcPre
+@REM check for pre script, once with legacy .bat ending and once with .cmd ending
+if exist "%USERPROFILE%\mavenrc_pre.bat" call "%USERPROFILE%\mavenrc_pre.bat" %*
+if exist "%USERPROFILE%\mavenrc_pre.cmd" call "%USERPROFILE%\mavenrc_pre.cmd" %*
+:skipRcPre
+
+@setlocal
+
+set ERROR_CODE=0
+
+@REM To isolate internal variables from possible post scripts, we use another setlocal
+@setlocal
+
+@REM ==== START VALIDATION ====
+if not "%JAVA_HOME%" == "" goto OkJHome
+
+echo.
+echo Error: JAVA_HOME not found in your environment. >&2
+echo Please set the JAVA_HOME variable in your environment to match the >&2
+echo location of your Java installation. >&2
+echo.
+goto error
+
+:OkJHome
+if exist "%JAVA_HOME%\bin\java.exe" goto init
+
+echo.
+echo Error: JAVA_HOME is set to an invalid directory. >&2
+echo JAVA_HOME = "%JAVA_HOME%" >&2
+echo Please set the JAVA_HOME variable in your environment to match the >&2
+echo location of your Java installation. >&2
+echo.
+goto error
+
+@REM ==== END VALIDATION ====
+
+:init
+
+@REM Find the project base dir, i.e. the directory that contains the folder ".mvn".
+@REM Fallback to current working directory if not found.
+
+set MAVEN_PROJECTBASEDIR=%MAVEN_BASEDIR%
+IF NOT "%MAVEN_PROJECTBASEDIR%"=="" goto endDetectBaseDir
+
+set EXEC_DIR=%CD%
+set WDIR=%EXEC_DIR%
+:findBaseDir
+IF EXIST "%WDIR%"\.mvn goto baseDirFound
+cd ..
+IF "%WDIR%"=="%CD%" goto baseDirNotFound
+set WDIR=%CD%
+goto findBaseDir
+
+:baseDirFound
+set MAVEN_PROJECTBASEDIR=%WDIR%
+cd "%EXEC_DIR%"
+goto endDetectBaseDir
+
+:baseDirNotFound
+set MAVEN_PROJECTBASEDIR=%EXEC_DIR%
+cd "%EXEC_DIR%"
+
+:endDetectBaseDir
+
+IF NOT EXIST "%MAVEN_PROJECTBASEDIR%\.mvn\jvm.config" goto endReadAdditionalConfig
+
+@setlocal EnableExtensions EnableDelayedExpansion
+for /F "usebackq delims=" %%a in ("%MAVEN_PROJECTBASEDIR%\.mvn\jvm.config") do set JVM_CONFIG_MAVEN_PROPS=!JVM_CONFIG_MAVEN_PROPS! %%a
+@endlocal & set JVM_CONFIG_MAVEN_PROPS=%JVM_CONFIG_MAVEN_PROPS%
+
+:endReadAdditionalConfig
+
+SET MAVEN_JAVA_EXE="%JAVA_HOME%\bin\java.exe"
+set WRAPPER_JAR="%MAVEN_PROJECTBASEDIR%\.mvn\wrapper\maven-wrapper.jar"
+set WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
+
+set DOWNLOAD_URL="https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.1.0/maven-wrapper-3.1.0.jar"
+
+FOR /F "usebackq tokens=1,2 delims==" %%A IN ("%MAVEN_PROJECTBASEDIR%\.mvn\wrapper\maven-wrapper.properties") DO (
+    IF "%%A"=="wrapperUrl" SET DOWNLOAD_URL=%%B
+)
+
+@REM Extension to allow automatically downloading the maven-wrapper.jar from Maven-central
+@REM This allows using the maven wrapper in projects that prohibit checking in binary data.
+if exist %WRAPPER_JAR% (
+    if "%MVNW_VERBOSE%" == "true" (
+        echo Found %WRAPPER_JAR%
+    )
+) else (
+    if not "%MVNW_REPOURL%" == "" (
+        SET DOWNLOAD_URL="%MVNW_REPOURL%/org/apache/maven/wrapper/maven-wrapper/3.1.0/maven-wrapper-3.1.0.jar"
+    )
+    if "%MVNW_VERBOSE%" == "true" (
+        echo Couldn't find %WRAPPER_JAR%, downloading it ...
+        echo Downloading from: %DOWNLOAD_URL%
+    )
+
+    powershell -Command "&{"^
+		"$webclient = new-object System.Net.WebClient;"^
+		"if (-not ([string]::IsNullOrEmpty('%MVNW_USERNAME%') -and [string]::IsNullOrEmpty('%MVNW_PASSWORD%'))) {"^
+		"$webclient.Credentials = new-object System.Net.NetworkCredential('%MVNW_USERNAME%', '%MVNW_PASSWORD%');"^
+		"}"^
+		"[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; $webclient.DownloadFile('%DOWNLOAD_URL%', '%WRAPPER_JAR%')"^
+		"}"
+    if "%MVNW_VERBOSE%" == "true" (
+        echo Finished downloading %WRAPPER_JAR%
+    )
+)
+@REM End of extension
+
+@REM Provide a "standardized" way to retrieve the CLI args that will
+@REM work with both Windows and non-Windows executions.
+set MAVEN_CMD_LINE_ARGS=%*
+
+%MAVEN_JAVA_EXE% ^
+  %JVM_CONFIG_MAVEN_PROPS% ^
+  %MAVEN_OPTS% ^
+  %MAVEN_DEBUG_OPTS% ^
+  -classpath %WRAPPER_JAR% ^
+  "-Dmaven.multiModuleProjectDirectory=%MAVEN_PROJECTBASEDIR%" ^
+  %WRAPPER_LAUNCHER% %MAVEN_CONFIG% %*
+if ERRORLEVEL 1 goto error
+goto end
+
+:error
+set ERROR_CODE=1
+
+:end
+@endlocal & set ERROR_CODE=%ERROR_CODE%
+
+if not "%MAVEN_SKIP_RC%"=="" goto skipRcPost
+@REM check for post script, once with legacy .bat ending and once with .cmd ending
+if exist "%USERPROFILE%\mavenrc_post.bat" call "%USERPROFILE%\mavenrc_post.bat"
+if exist "%USERPROFILE%\mavenrc_post.cmd" call "%USERPROFILE%\mavenrc_post.cmd"
+:skipRcPost
+
+@REM pause the script if MAVEN_BATCH_PAUSE is set to 'on'
+if "%MAVEN_BATCH_PAUSE%"=="on" pause
+
+if "%MAVEN_TERMINATE_CMD%"=="on" exit %ERROR_CODE%
+
+cmd /C exit /B %ERROR_CODE%
+</file>
+
+<file path="pom.xml">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>uet.vnu.edu</groupId>
+    <artifactId>ScrCpy</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>ScrCpy Dashboard</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.12.1</junit.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>21.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>21.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>25</source>
+                    <target>25</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <configuration>
+                            <mainClass>uet.vnu.edu.scrcpy/uet.vnu.edu.scrcpy.Main</mainClass>
+                            <launcher>CrystalScrcpy_Aoi</launcher>
+                            <jlinkZipName>CrystalScrcpy_Portable_Build</jlinkZipName>
+                            <jlinkImageName>CrystalScrcpy_Portable</jlinkImageName>
+                            <noManPages>true</noManPages>
+                            <stripDebug>true</stripDebug>
+                            <noHeaderFiles>true</noHeaderFiles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+</file>
+
+<file path="src/main/java/module-info.java">
+module uet.vnu.edu.scrcpy {
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires java.desktop;
+
+    // Cấp quyền cho 2 thằng này để chạy OBS WebSocket
+    requires java.net.http;
+    requires com.google.gson;
+
+    // Phải mở cửa (opens) cho thằng gson nó dùng Reflection để đọc biến
+    opens uet.vnu.edu.scrcpy to javafx.fxml, com.google.gson;
+    exports uet.vnu.edu.scrcpy;
+}
+</file>
+
+<file path="src/main/java/uet/vnu/edu/scrcpy/Controller.java">
+package uet.vnu.edu.scrcpy;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.io.*;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.awt.Desktop;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Controller {
+
+    @FXML private BorderPane root_pane;
+    @FXML private VBox main_panel;
+    @FXML private ComboBox<String> src_type, cam_list, res_list, fps_list, orientation_list;
+    @FXML private Slider bitrate_slider, radius_slider, opacity_slider;
+    @FXML private TextField bitrate_input;
+    @FXML private ColorPicker btn_color_picker;
+    @FXML private Button btn_start, btn_stop, btn_toggle_screen;
+    @FXML private CheckBox audio_toggle, always_on_top, stay_awake, record_toggle;
+    @FXML private Label label_lens, lbl_status, lbl_bitrate_display, lbl_device_model;
+    @FXML private TextArea log_area;
+    @FXML private Label lbl_battery, lbl_cpu_temp, lbl_ram_usage;
+    @FXML private CheckBox vcam_toggle;
+    @FXML private ComboBox<String> vcam_mode;
+    private Process vcam_process; // ffmpeg process riêng
+    private static final Pattern LOGICAL_ID_PATTERN =
+            Pattern.compile("Camera\\s+Id:\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern PHYSICAL_BLOCK_PATTERN =
+            Pattern.compile("(?:physicalIds|Physical\\s+Camera\\s+Ids)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DIGIT_PATTERN = Pattern.compile("(\\d+)");
+    private static final int CAMERA_ID_MAX = 5;
+
+    private Process current_process;
+    private boolean is_screen_off = false;
+    private volatile boolean device_was_connected = false;
+    private static final String RECORD_DIR = System.getProperty("user.home") + "/Videos/CrystalScrcpy";
+    private static final String SCREENSHOT_DIR = System.getProperty("user.home") + "/Pictures/CrystalScrcpy";
+    private static final DateTimeFormatter TIMESTAMP_FMT =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+    // OBS WebSocket
+    private OBSController obs_ctrl;
+    private Process mediamtx_process;
+    private static final String OBS_HOST     = "127.0.0.1";
+    private static final int    OBS_PORT     = 4455;
+    private static final String OBS_PASSWORD = "crystal123"; // đổi theo password mày đặt
+    private static final String RTSP_URL     = "rtsp://127.0.0.1:8554/phone";
+    private static final String OBS_SOURCE   = "CrystalScrcpy-Phone";
+
+    @FXML
+    public void initialize() {
+        update_device_info();
+        bitrate_slider.setValue(8);
+        bitrate_input.setText("8");
+        lbl_bitrate_display.setText("8 Mbps");
+        vcam_mode.getItems().addAll("OBS-Camera", "Unity Video Capture");
+        vcam_mode.getSelectionModel().select(0);
+        vcam_mode.disableProperty().bind(vcam_toggle.selectedProperty().not());
+        bitrate_slider.valueProperty().addListener((o, old, newVal) -> {
+            int ans = newVal.intValue();
+            if (!bitrate_input.isFocused()) bitrate_input.setText(String.valueOf(ans));
+            lbl_bitrate_display.setText(ans + " Mbps");
+        });
+
+        bitrate_input.textProperty().addListener((o, old, newVal) -> {
+            if (!newVal.matches("\\d*")) {
+                bitrate_input.setText(newVal.replaceAll("[^\\d]", ""));
+            } else if (!newVal.isEmpty()) {
+                int ans = Integer.parseInt(newVal);
+                if (ans > 100) ans = 100;
+                bitrate_slider.setValue(ans);
+            }
+        });
+
+        radius_slider.valueProperty().addListener((o, old, newVal) -> update_theme());
+        opacity_slider.valueProperty().addListener((o, old, newVal) -> update_theme());
+        btn_color_picker.setValue(Color.LIGHTPINK);
+        btn_color_picker.valueProperty().addListener((o, old, newVal) -> update_theme());
+
+        src_type.getItems().addAll("Display (Mirroring)", "Camera (Lens Mode)");
+        src_type.getSelectionModel().select(0);
+        src_type.valueProperty().addListener((o, old, newVal) -> {
+            boolean res = newVal.contains("Camera");
+            cam_list.setDisable(!res);
+            label_lens.setDisable(!res);
+        });
+
+        cam_list.setDisable(true);
+        res_list.getItems().addAll("Default", "1920x1080", "1280x720", "960x540");
+        res_list.getSelectionModel().select("1920x1080");
+
+        fps_list.getItems().addAll("30", "60", "120");
+        fps_list.getSelectionModel().select("60");
+
+        orientation_list.getItems().addAll("0", "90", "180", "270");
+        orientation_list.getSelectionModel().select("0");
+        start_resource_monitor();
+        start_reconnect_watchdog();
+        detect_cameras();
+        detect_resolutions();
+    }
+    private void start_resource_monitor() {
+        Thread res_thread = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    String ans_bat = monitor_battery();
+                    String ans_temp = monitor_temperature();
+                    String ans_mem = monitor_ram();
+
+                    javafx.application.Platform.runLater(() -> {
+                        lbl_battery.setText(ans_bat.equals("N/A") ? "N/A" : ans_bat + "%");
+                        lbl_cpu_temp.setText(ans_temp.equals("N/A") ? "N/A" : ans_temp + " °C");
+                        lbl_ram_usage.setText(ans_mem.equals("N/A") ? "N/A" : ans_mem + " MB");
+                    });
+
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } catch (Exception ignored) {
+                }
+            }
+        });
+        res_thread.setDaemon(true);
+        res_thread.start();
+    }
+
+    private String monitor_battery() {
+        try {
+            Process res_p = new ProcessBuilder("bin/adb.exe", "shell", "dumpsys", "battery")
+                    .redirectErrorStream(true).start();
+            try (BufferedReader res_r = new BufferedReader(new InputStreamReader(res_p.getInputStream()))) {
+                String res_l;
+                while ((res_l = res_r.readLine()) != null) {
+                    String ans = res_l.trim();
+                    if (ans.startsWith("level:")) {
+                        int ans_val = Integer.parseInt(ans.substring(ans.indexOf(':') + 1).trim());
+                        if (ans_val >= 0 && ans_val <= 100) return String.valueOf(ans_val);
+                    }
+                }
+            }
+            res_p.waitFor(3, TimeUnit.SECONDS);
+        } catch (Exception ignored) {
+        }
+        return "N/A";
+    }
+
+    private String monitor_temperature() {
+        // Ưu tiên 1: thermal sysfs — chuẩn kernel, hoạt động trên mọi Android
+        // Thử lần lượt zone0 → zone1 → zone2 vì mỗi OEM map CPU ở zone khác nhau
+        for (int res_zone = 0; res_zone <= 9; res_zone++) {
+            try {
+                Process res_p = new ProcessBuilder(
+                        "bin/adb.exe", "shell", "cat",
+                        "/sys/class/thermal/thermal_zone" + res_zone + "/temp")
+                        .redirectErrorStream(true).start();
+                try (BufferedReader res_r = new BufferedReader(new InputStreamReader(res_p.getInputStream()))) {
+                    String ans = res_r.readLine();
+                    if (ans != null && ans.trim().matches("\\d+")) {
+                        int res_raw = Integer.parseInt(ans.trim());
+                        // Loại zone trả về 0 hoặc giá trị ảo < 1000 milli-celsius
+                        if (res_raw <= 0) continue;
+                        // Chuẩn: > 1000 là milli-celsius, <= 1000 là tenths-of-degree (Qualcomm cũ)
+                        double ans_c = res_raw > 1000 ? res_raw / 1000.0 : res_raw / 10.0;
+                        // Chỉ lấy giá trị hợp lý (15°C – 120°C)
+                        if (ans_c >= 15.0 && ans_c <= 120.0) {
+                            return String.format("%.1f", ans_c);
+                        }
+                    }
+                }
+                res_p.waitFor(2, TimeUnit.SECONDS);
+            } catch (Exception ignored) {
+            }
+        }
+
+        // Fallback: dumpsys battery temperature (tenths of degree Celsius, mọi Android đều có)
+        try {
+            Process res_p = new ProcessBuilder("bin/adb.exe", "shell", "dumpsys", "battery")
+                    .redirectErrorStream(true).start();
+            try (BufferedReader res_r = new BufferedReader(new InputStreamReader(res_p.getInputStream()))) {
+                String res_l;
+                while ((res_l = res_r.readLine()) != null) {
+                    String ans = res_l.trim();
+                    if (ans.startsWith("temperature:")) {
+                        int ans_raw = Integer.parseInt(ans.substring(ans.indexOf(':') + 1).trim());
+                        double ans_c = ans_raw / 10.0;
+                        if (ans_c >= 15.0 && ans_c <= 120.0) return String.format("%.1f", ans_c);
+                    }
+                }
+            }
+            res_p.waitFor(3, TimeUnit.SECONDS);
+        } catch (Exception ignored) {
+        }
+
+        return "N/A";
+    }
+
+    private String monitor_ram() {
+        // /proc/meminfo là chuẩn POSIX kernel — có trên 100% thiết bị Android
+        try {
+            Process res_p = new ProcessBuilder("bin/adb.exe", "shell", "cat", "/proc/meminfo")
+                    .redirectErrorStream(true).start();
+            long ans_total = -1;
+            long ans_avail = -1;
+            try (BufferedReader res_r = new BufferedReader(new InputStreamReader(res_p.getInputStream()))) {
+                String res_l;
+                while ((res_l = res_r.readLine()) != null) {
+                    String ans = res_l.trim();
+                    if (ans.startsWith("MemTotal:") && ans_total < 0) {
+                        ans_total = parse_meminfo_kb(ans);
+                    } else if (ans.startsWith("MemAvailable:") && ans_avail < 0) {
+                        ans_avail = parse_meminfo_kb(ans);
+                    }
+                    if (ans_total > 0 && ans_avail >= 0) break;
+                }
+            }
+            res_p.waitFor(3, TimeUnit.SECONDS);
+            if (ans_total > 0 && ans_avail >= 0) {
+                long ans_used = (ans_total - ans_avail) / 1024;
+                long ans_total_mb = ans_total / 1024;
+                return ans_used + "/" + ans_total_mb;
+            }
+        } catch (Exception ignored) {
+        }
+        return "N/A";
+    }
+
+    private long parse_meminfo_kb(String res_line) {
+        try {
+            return Long.parseLong(res_line.split("\\s+")[1]);
+        } catch (Exception ignored) {
+            return -1;
+        }
+    }
+    private void detect_cameras() {
+        new Thread(() -> {
+            release_camera_processes();
+
+            Set<String> res = new LinkedHashSet<>();
+
+            try {
+                Process proc = new ProcessBuilder("bin/adb.exe", "shell", "dumpsys", "media.camera")
+                        .redirectErrorStream(true)
+                        .start();
+
+                List<String> lines = new ArrayList<>();
+                try (BufferedReader reader =
+                             new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        lines.add(line);
+                    }
+                }
+
+                proc.waitFor(5, TimeUnit.SECONDS);
+
+                String currentLogical = null;
+
+                for (int i = 0; i < lines.size(); i++) {
+                    String ans = lines.get(i).trim();
+
+                    Matcher logicalMatcher = LOGICAL_ID_PATTERN.matcher(ans);
+                    if (logicalMatcher.find()) {
+                        int id = Integer.parseInt(logicalMatcher.group(1));
+                        if (id <= CAMERA_ID_MAX) {
+                            currentLogical = String.valueOf(id);
+                            res.add(currentLogical);
+                        } else {
+                            currentLogical = null;
+                        }
+                        continue;
+                    }
+
+                    if (currentLogical != null && PHYSICAL_BLOCK_PATTERN.matcher(ans).find()) {
+                        List<String> physicalIds = extract_ids_from_block(lines, i);
+                        boolean hasStandalonePhysical = physicalIds.stream()
+                                .anyMatch(pid -> !res.contains(pid));
+
+                        for (String pid : physicalIds) {
+                            if (pid.equals(currentLogical)) continue;
+                            if (hasStandalonePhysical && res.contains(pid)) {
+                                res.add(pid);
+                            } else {
+                                res.add(currentLogical + ":" + pid);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                javafx.application.Platform.runLater(() ->
+                        log_area.appendText("[WARN] detect_cameras failed: " + e.getMessage() + "\n"));
+            }
+
+            List<String> ansList = build_sorted_list(res);
+
+            javafx.application.Platform.runLater(() -> {
+                cam_list.getItems().clear();
+                if (ansList.isEmpty()) {
+                    cam_list.getItems().addAll("0", "1", "0:2", "0:3", "0:4");
+                } else {
+                    cam_list.getItems().addAll(ansList);
+                }
+                cam_list.getSelectionModel().select(0);
+            });
+        }).start();
+    }
+
+    private List<String> extract_ids_from_block(List<String> lines, int startIndex) {
+        List<String> res = new ArrayList<>();
+        String blockLine = lines.get(startIndex);
+
+        int openBracket = blockLine.indexOf('[');
+        int closeBracket = blockLine.indexOf(']');
+
+        if (openBracket != -1 && closeBracket != -1 && closeBracket > openBracket) {
+            String inner = blockLine.substring(openBracket + 1, closeBracket);
+            Matcher m = DIGIT_PATTERN.matcher(inner);
+            while (m.find()) {
+                int id = Integer.parseInt(m.group(1));
+                if (id <= CAMERA_ID_MAX) res.add(String.valueOf(id));
+            }
+            return res;
+        }
+
+        for (int j = startIndex + 1; j < Math.min(startIndex + 10, lines.size()); j++) {
+            String ans = lines.get(j).trim();
+            if (ans.isEmpty() || LOGICAL_ID_PATTERN.matcher(ans).find()) break;
+            Matcher m = DIGIT_PATTERN.matcher(ans);
+            while (m.find()) {
+                int id = Integer.parseInt(m.group(1));
+                if (id <= CAMERA_ID_MAX) res.add(String.valueOf(id));
+            }
+            if (!res.isEmpty()) break;
+        }
+
+        return res;
+    }
+
+    private List<String> build_sorted_list(Set<String> res) {
+        List<String> standalone = new ArrayList<>();
+        List<String> combo = new ArrayList<>();
+
+        for (String id : res) {
+            if (id.contains(":")) {
+                combo.add(id);
+            } else {
+                standalone.add(id);
+            }
+        }
+
+        Collections.sort(standalone);
+        Collections.sort(combo);
+
+        List<String> ans = new ArrayList<>();
+        ans.addAll(standalone);
+        ans.addAll(combo);
+        return ans;
+    }
+
+    private void release_camera_processes() {
+        try {
+            new ProcessBuilder("bin/adb.exe", "shell", "pkill", "-f", "android.hardware.camera")
+                    .start().waitFor(2, TimeUnit.SECONDS);
+            new ProcessBuilder("bin/adb.exe", "shell", "pkill", "-f", "camera")
+                    .start().waitFor(2, TimeUnit.SECONDS);
+            Thread.sleep(800);
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void update_device_info() {
+        new Thread(() -> {
+            try {
+                Process res_process = new ProcessBuilder("bin/adb.exe", "shell", "getprop", "ro.product.model").start();
+                BufferedReader res_reader = new BufferedReader(new InputStreamReader(res_process.getInputStream()));
+                String res = res_reader.readLine();
+
+                if (res != null && !res.isEmpty()) {
+                    String ans = res.trim();
+                    javafx.application.Platform.runLater(() -> lbl_device_model.setText(ans));
+                } else {
+                    javafx.application.Platform.runLater(() -> lbl_device_model.setText("No Device Found"));
+                }
+            } catch (Exception e) {
+                javafx.application.Platform.runLater(() -> lbl_device_model.setText("Offline"));
+            }
+        }).start();
+    }
+
+    private void update_theme() {
+        double res_radius = radius_slider.getValue();
+        double res_opacity = opacity_slider.getValue();
+        String res_color = to_hex(btn_color_picker.getValue());
+
+        main_panel.setStyle(String.format(
+                "-fx-background-color: rgba(255, 255, 255, %f); -fx-background-radius: %f; -fx-border-radius: %f;",
+                res_opacity, res_radius, res_radius));
+
+        String ans = String.format("-fx-background-color: %s; -fx-background-radius: %f;", res_color, res_radius);
+        btn_start.setStyle(ans);
+        btn_stop.setStyle(ans);
+        btn_toggle_screen.setStyle(ans);
+    }
+
+    private String to_hex(Color val) {
+        return String.format("#%02X%02X%02X",
+                (int) (val.getRed() * 255),
+                (int) (val.getGreen() * 255),
+                (int) (val.getBlue() * 255));
+    }
+
+    @FXML
+    private void change_waifu() {
+        FileChooser ans = new FileChooser();
+        ans.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+        File res = ans.showOpenDialog(root_pane.getScene().getWindow());
+        if (res != null) {
+            String ans_url = res.toURI().toString();
+            root_pane.setStyle("-fx-background-image: url('" + ans_url + "'); -fx-background-size: cover; -fx-background-position: center center; -fx-background-repeat: no-repeat;");
+        }
+    }
+
+    private void send_adb_cmd(String... cmd) {
+        new Thread(() -> {
+            try {
+                List<String> res = new ArrayList<>();
+                res.add("bin/adb.exe");
+                res.add("shell");
+                res.addAll(Arrays.asList(cmd));
+                new ProcessBuilder(res).start();
+            } catch (Exception ignored) {
+            }
+        }).start();
+    }
+
+    private void send_shortcut(int ans_key, boolean ans_shift) {
+        new Thread(() -> {
+            try {
+                String res = "$p = Get-Process scrcpy | Where-Object { $_.MainWindowHandle -ne 0 } | Select-Object -First 1; if ($p) { $wshell = New-Object -ComObject wscript.shell; $wshell.AppActivate($p.MainWindowHandle); }";
+                Process res_p = new ProcessBuilder("powershell.exe", "-Command", res).start();
+                res_p.waitFor();
+                Thread.sleep(250);
+
+                Robot res_robot = new Robot();
+                res_robot.keyPress(KeyEvent.VK_ALT);
+                if (ans_shift) res_robot.keyPress(KeyEvent.VK_SHIFT);
+                res_robot.keyPress(ans_key);
+                res_robot.keyRelease(ans_key);
+                if (ans_shift) res_robot.keyRelease(KeyEvent.VK_SHIFT);
+                res_robot.keyRelease(KeyEvent.VK_ALT);
+            } catch (Exception ignored) {
+            }
+        }).start();
+    }
+
+    @FXML private void toggle_screen() {
+        is_screen_off = !is_screen_off;
+        send_shortcut(KeyEvent.VK_O, !is_screen_off);
+    }
+
+    @FXML private void act_rotate() { send_shortcut(KeyEvent.VK_R, false); }
+    @FXML private void act_home() { send_adb_cmd("input", "keyevent", "3"); }
+    @FXML private void act_back() { send_adb_cmd("input", "keyevent", "4"); }
+    @FXML private void act_switch() { send_adb_cmd("input", "keyevent", "187"); }
+    @FXML private void act_vol_up() { send_adb_cmd("input", "keyevent", "24"); }
+    @FXML private void act_vol_down() { send_adb_cmd("input", "keyevent", "25"); }
+    @FXML private void act_power() { send_adb_cmd("input", "keyevent", "26"); }
+    @FXML private void act_expand_notif() { send_adb_cmd("cmd", "statusbar", "expand-notifications"); }
+    @FXML private void act_collapse() { send_adb_cmd("cmd", "statusbar", "collapse"); }
+
+    @FXML
+    private void handle_start() {
+        handle_stop();
+        try { Thread.sleep(500); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+
+        List<String> res = new ArrayList<>(Arrays.asList("bin/scrcpy.exe"));
+
+        if (src_type.getValue().contains("Camera")) {
+            res.add("--video-source=camera");
+            res.add("--camera-id=" + cam_list.getValue().split(":")[0]);
+            if (!res_list.getValue().equals("Default")) res.add("--camera-size=" + res_list.getValue());
+            res.add("--camera-fps=" + fps_list.getValue());
+            res.add("--capture-orientation=" + orientation_list.getValue());
+        } else {
+            res.add("--video-source=display");
+            res.add("--max-fps=" + fps_list.getValue());
+            res.add("--capture-orientation=" + orientation_list.getValue());
+        }
+
+        res.add("--video-bit-rate=" + bitrate_input.getText() + "M");
+        if (!audio_toggle.isSelected()) res.add("--no-audio");
+        if (always_on_top.isSelected()) res.add("--always-on-top");
+        if (stay_awake.isSelected()) res.add("--stay-awake");
+
+        if (record_toggle.isSelected()) {
+            try {
+                Files.createDirectories(Paths.get(RECORD_DIR));
+            } catch (IOException ignored) {
+            }
+            String ans_ts = LocalDateTime.now().format(TIMESTAMP_FMT);
+            String ans_file = RECORD_DIR + "/rec_" + ans_ts + ".mp4";
+            res.add("--record=" + ans_file);
+            log_area.appendText("[REC] Saving to: " + ans_file + "\n");
+        }
+        if (vcam_toggle.isSelected()) {
+            launch_with_virtual_cam(res);
+        } else {
+            execute(res);
+        }
+        // BUG FIX: bỏ execute(res) thừa — trước đây scrcpy bị chạy 2 lần
+    }
+    private void launch_with_virtual_cam(List<String> scrcpy_args) {
+        scrcpy_args.add("--always-on-top");
+
+        try {
+            // ── Bước 1: Khởi động scrcpy bình thường ──────────────────────
+            ProcessBuilder pb_scrcpy = new ProcessBuilder(scrcpy_args);
+            pb_scrcpy.redirectErrorStream(true);
+            current_process = pb_scrcpy.start();
+            lbl_status.setText("VCAM");
+
+            new Thread(() -> {
+                try (BufferedReader r = new BufferedReader(
+                        new InputStreamReader(current_process.getInputStream()))) {
+                    String line;
+                    while ((line = r.readLine()) != null) {
+                        String l = line;
+                        javafx.application.Platform.runLater(() -> log_area.appendText(l + "\n"));
+                    }
+                } catch (IOException ignored) {}
+            }).start();
+
+            javafx.application.Platform.runLater(() ->
+                    log_area.appendText("[VCAM] scrcpy started, đợi window...\n"));
+
+            Thread.sleep(3000);
+
+            // ── Bước 2: Xác định tham số ──────────────────────────────────
+            String device_title = lbl_device_model.getText().trim();
+            String fps          = fps_list.getValue();
+            boolean use_unity   = vcam_mode.getValue().contains("Unity");
+
+            // Named pipe do driver tạo sẵn — không cần tạo thủ công
+            String pipe_path = use_unity
+                    ? "\\\\.\\pipe\\unitycapture"
+                    : "\\\\.\\pipe\\obs-virtualcam";
+
+            javafx.application.Platform.runLater(() ->
+                    log_area.appendText("[VCAM] Grabbing: \"" + device_title + "\" → " + pipe_path + "\n"));
+
+            // ── Bước 3: ffmpeg gdigrab → rawvideo → stdout ─────────────────
+            List<String> ffmpeg_cmd = new ArrayList<>(Arrays.asList(
+                    "bin/ffmpeg.exe",
+                    "-loglevel", "warning",
+                    "-f", "gdigrab",
+                    "-framerate", fps,
+                    "-i", "title=" + device_title,
+                    "-vf", "scale=1280:720,format=bgr24",
+                    "-f", "rawvideo",
+                    "-"
+            ));
+
+            ProcessBuilder pb_ffmpeg = new ProcessBuilder(ffmpeg_cmd);
+            pb_ffmpeg.redirectErrorStream(false);
+            vcam_process = pb_ffmpeg.start();
+
+            // Log ffmpeg stderr
+            new Thread(() -> {
+                try (BufferedReader r = new BufferedReader(
+                        new InputStreamReader(vcam_process.getErrorStream()))) {
+                    String line;
+                    while ((line = r.readLine()) != null) {
+                        String l = line;
+                        javafx.application.Platform.runLater(() ->
+                                log_area.appendText("[FFMPEG] " + l + "\n"));
+                    }
+                } catch (IOException ignored) {}
+                javafx.application.Platform.runLater(() -> lbl_status.setText("READY"));
+            }).start();
+
+            // ── Bước 4: Pipe rawvideo → named pipe của driver ──────────────
+            InputStream ffmpeg_out = vcam_process.getInputStream();
+            final String final_pipe = pipe_path;
+            new Thread(() -> {
+                try (FileOutputStream pipe_out = new FileOutputStream(final_pipe)) {
+                    byte[] buf = new byte[65536];
+                    int n;
+                    while ((n = ffmpeg_out.read(buf)) != -1) {
+                        pipe_out.write(buf, 0, n);
+                    }
+                } catch (IOException e) {
+                    javafx.application.Platform.runLater(() ->
+                            log_area.appendText("[VCAM PIPE ERR] " + e.getMessage()
+                                    + "\n→ Driver chưa cài? Xem hướng dẫn trong README\n"));
+                }
+            }).start();
+
+            String driver_name = use_unity ? "Unity Video Capture" : "OBS Virtual Camera";
+            javafx.application.Platform.runLater(() ->
+                    log_area.appendText("[VCAM] ✓ Đang stream vào \"" + driver_name + "\"\n"
+                            + "[VCAM] Mở Discord/Meet → chọn camera \"" + driver_name + "\" là xong!\n"));
+
+        } catch (Exception e) {
+            javafx.application.Platform.runLater(() ->
+                    log_area.appendText("[VCAM ERR] " + e.getMessage() + "\n"));
+        }
+    }
+    private void execute(List<String> cmd) {
+        try {
+            current_process = new ProcessBuilder(cmd).redirectErrorStream(true).start();
+            lbl_status.setText("RUNNING");
+            log_area.appendText("\n[LAUNCH] " + String.join(" ", cmd) + "\n");
+            is_screen_off = false;
+
+            new Thread(() -> {
+                try (BufferedReader reader =
+                             new BufferedReader(new InputStreamReader(current_process.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String ans = line;
+                        javafx.application.Platform.runLater(() -> log_area.appendText(ans + "\n"));
+                    }
+                } catch (IOException ignored) {
+                }
+                javafx.application.Platform.runLater(() -> lbl_status.setText("READY"));
+                if (record_toggle.isSelected()) {
+                    open_record_folder();
+                }
+            }).start();
+        } catch (IOException e) {
+            log_area.appendText("\n[ERR] " + e.getMessage());
+        }
+    }
+
+
+    @FXML
+    private void handle_screenshot() {
+        new Thread(() -> {
+            try {
+                Files.createDirectories(Paths.get(SCREENSHOT_DIR));
+                String ans_ts = LocalDateTime.now().format(TIMESTAMP_FMT);
+                String ans_path = SCREENSHOT_DIR + "/shot_" + ans_ts + ".png";
+
+                Process res_p = new ProcessBuilder(
+                        "bin/adb.exe", "exec-out", "screencap", "-p")
+                        .start();
+
+                try (InputStream res_in = res_p.getInputStream();
+                     FileOutputStream res_out = new FileOutputStream(ans_path)) {
+                    byte[] res_buf = new byte[8192];
+                    int res_n;
+                    while ((res_n = res_in.read(res_buf)) != -1) {
+                        res_out.write(res_buf, 0, res_n);
+                    }
+                }
+                res_p.waitFor(10, TimeUnit.SECONDS);
+
+                File res_file = new File(ans_path);
+                if (res_file.exists() && res_file.length() > 1024) {
+                    javafx.application.Platform.runLater(() ->
+                            log_area.appendText("[SHOT] Saved: " + ans_path + "\n"));
+                    Desktop.getDesktop().open(new File(SCREENSHOT_DIR));
+                } else {
+                    res_file.delete();
+                    javafx.application.Platform.runLater(() ->
+                            log_area.appendText("[SHOT] Failed — no device or empty output\n"));
+                }
+            } catch (Exception e) {
+                javafx.application.Platform.runLater(() ->
+                        log_area.appendText("[SHOT] Error: " + e.getMessage() + "\n"));
+            }
+        }).start();
+    }
+
+    private void open_record_folder() {
+        try {
+            File res_dir = new File(RECORD_DIR);
+            if (res_dir.exists() && Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(res_dir);
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void start_reconnect_watchdog() {
+        Thread res_thread = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    Thread.sleep(5000);
+
+                    Process res_p = new ProcessBuilder("bin/adb.exe", "get-state")
+                            .redirectErrorStream(true).start();
+                    String res_state = null;
+                    try (BufferedReader res_r =
+                                 new BufferedReader(new InputStreamReader(res_p.getInputStream()))) {
+                        res_state = res_r.readLine();
+                    }
+                    res_p.waitFor(3, TimeUnit.SECONDS);
+
+                    boolean ans_online = "device".equals(res_state != null ? res_state.trim() : "");
+
+                    if (ans_online && !device_was_connected) {
+                        device_was_connected = true;
+                        javafx.application.Platform.runLater(() -> {
+                            log_area.appendText("[ADB] Device reconnected — refreshing...\n");
+                            lbl_device_model.setText("Detecting...");
+                            lbl_battery.setText("--%");
+                            lbl_cpu_temp.setText("-- °C");
+                            lbl_ram_usage.setText("-- MB");
+                        });
+                        update_device_info();
+                        detect_cameras();
+                        detect_resolutions();
+                    } else if (!ans_online && device_was_connected) {
+                        device_was_connected = false;
+                        javafx.application.Platform.runLater(() -> {
+                            log_area.appendText("[ADB] Device disconnected\n");
+                            lbl_device_model.setText("Offline");
+                            lbl_battery.setText("N/A");
+                            lbl_cpu_temp.setText("N/A");
+                            lbl_ram_usage.setText("N/A");
+                            lbl_status.setText("READY");
+                        });
+                        if (current_process != null) current_process.destroy();
+                    }
+
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } catch (Exception ignored) {
+                }
+            }
+        });
+        res_thread.setDaemon(true);
+        res_thread.start();
+    }
+
+    private void detect_resolutions() {
+        new Thread(() -> {
+            List<String> res = new ArrayList<>();
+            res.add("Default");
+
+            try {
+                Process res_p1 = new ProcessBuilder("bin/adb.exe", "shell", "wm", "size")
+                        .redirectErrorStream(true).start();
+                String ans_native = null;
+                try (BufferedReader res_r =
+                             new BufferedReader(new InputStreamReader(res_p1.getInputStream()))) {
+                    String res_l;
+                    while ((res_l = res_r.readLine()) != null) {
+                        if (res_l.contains("Physical size:") || res_l.contains("Override size:")) {
+                            Matcher m = Pattern.compile("(\\d{3,4})x(\\d{3,4})").matcher(res_l);                            if (m.find()) {
+                                int ans_w = Integer.parseInt(m.group(1));
+                                int ans_h = Integer.parseInt(m.group(2));
+                                if (ans_w < ans_h) { int tmp = ans_w; ans_w = ans_h; ans_h = tmp; }
+                                ans_native = ans_w + "x" + ans_h;
+                            }
+                        }
+                    }
+                }
+                res_p1.waitFor(3, TimeUnit.SECONDS);
+
+                Set<String> ans_modes = new LinkedHashSet<>();
+                Process res_p2 = new ProcessBuilder("bin/adb.exe", "shell", "dumpsys", "display")
+                        .redirectErrorStream(true).start();
+                try (BufferedReader res_r =
+                             new BufferedReader(new InputStreamReader(res_p2.getInputStream()))) {
+                    String res_l;
+                    while ((res_l = res_r.readLine()) != null) {
+                        Matcher m = Pattern.compile("(\\d{3,4})x(\\d{3,4})").matcher(res_l);                        while (m.find()) {
+                            int ans_w = Integer.parseInt(m.group(1));
+                            int ans_h = Integer.parseInt(m.group(2));
+                            if (ans_w < 480 || ans_h < 480 || ans_w > 4096 || ans_h > 4096) continue;
+                            if (ans_w < ans_h) { int tmp = ans_w; ans_w = ans_h; ans_h = tmp; }
+                            ans_modes.add(ans_w + "x" + ans_h);
+                        }
+                    }
+                }
+                res_p2.waitFor(5, TimeUnit.SECONDS);
+
+                if (ans_modes.isEmpty() && ans_native != null) {
+                    String[] ans_parts = ans_native.split("x");
+                    int ans_w = Integer.parseInt(ans_parts[0]);
+                    int ans_h = Integer.parseInt(ans_parts[1]);
+                    ans_modes.add(ans_w + "x" + ans_h);
+                    int[][] ans_scales = {{2, 3}, {1, 2}, {1, 3}, {1, 4}};
+                    for (int[] ans_s : ans_scales) {
+                        int ans_sw = (ans_w * ans_s[0] / ans_s[1]) & ~1;
+                        int ans_sh = (ans_h * ans_s[0] / ans_s[1]) & ~1;
+                        if (ans_sw >= 480) ans_modes.add(ans_sw + "x" + ans_sh);
+                    }
+                }
+
+                List<String> ans_sorted = new ArrayList<>(ans_modes);
+                ans_sorted.sort((a, b) -> {
+                    String[] pa = a.split("x"), pb = b.split("x");
+                    int area_a = Integer.parseInt(pa[0]) * Integer.parseInt(pa[1]);
+                    int area_b = Integer.parseInt(pb[0]) * Integer.parseInt(pb[1]);
+                    return Integer.compare(area_b, area_a);
+                });
+                res.addAll(ans_sorted);
+
+            } catch (Exception ignored) {
+                res.addAll(Arrays.asList("1920x1080", "1280x720", "960x540"));
+            }
+
+            List<String> ans_final = res;
+            javafx.application.Platform.runLater(() -> {
+                String ans_cur = res_list.getValue();
+                res_list.getItems().setAll(ans_final);
+                if (ans_final.contains(ans_cur)) res_list.setValue(ans_cur);
+                else res_list.getSelectionModel().select(0);
+            });
+        }).start();
+    }
+
+    @FXML
+    private void handle_stop() {
+        if (current_process != null) current_process.destroy();
+        if (vcam_process != null) vcam_process.destroy(); // thêm dòng này
+        new Thread(() -> {
+            try {
+                new ProcessBuilder("bin/adb.exe", "shell", "pkill", "-f", "scrcpy")
+                        .start().waitFor(1, TimeUnit.SECONDS);
+                new ProcessBuilder("bin/adb.exe", "shell", "pkill", "-f", "camera")
+                        .start().waitFor(1, TimeUnit.SECONDS);
+            } catch (Exception ignored) {
+            }
+        }).start();
+        lbl_status.setText("READY");
+    }
+}
+</file>
+
+<file path="src/main/java/uet/vnu/edu/scrcpy/Main.java">
+package uet.vnu.edu.scrcpy;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent res = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+        stage.setTitle("CrystalScrcpy - Aoi Edition");
+
+        // Nap icon waifu len thanh tieu de
+        try {
+            Image ans = new Image(getClass().getResourceAsStream("/uet/vnu/edu/scrcpy/icon.jpg"));
+            stage.getIcons().add(ans);
+        } catch (Exception e) {
+            System.out.println("Loi nap icon: " + e.getMessage());
+        }
+
+        stage.setScene(new Scene(res, 1100, 800));
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+</file>
+
+<file path="src/main/java/uet/vnu/edu/scrcpy/OBSController.java">
+package uet.vnu.edu.scrcpy;
+
+import com.google.gson.*;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.WebSocket;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.Base64;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
+
+public class OBSController {
+    private final String host;
+    private final int port;
+    private final String password;
+    private WebSocket ws;
+    private Consumer<String> logger = System.out::println;
+    private final ConcurrentHashMap<String, CompletableFuture<JsonObject>> pendingRequests = new ConcurrentHashMap<>();
+    private CompletableFuture<Void> authFuture;
+
+    public OBSController(String host, int port, String password) {
+        this.host = host;
+        this.port = port;
+        this.password = password;
+    }
+
+    public void setLogger(Consumer<String> logger) {
+        this.logger = logger;
+    }
+
+    public CompletableFuture<Void> connect() {
+        authFuture = new CompletableFuture<>();
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            client.newWebSocketBuilder()
+                    .buildAsync(URI.create("ws://" + host + ":" + port), new WebSocket.Listener() {
+                        StringBuilder textBuffer = new StringBuilder();
+
+                        @Override
+                        public void onOpen(WebSocket webSocket) {
+                            ws = webSocket;
+                            WebSocket.Listener.super.onOpen(webSocket);
+                        }
+
+                        @Override
+                        public CompletionStage<?> onText(WebSocket webSocket, CharSequence data, boolean last) {
+                            textBuffer.append(data);
+                            if (last) {
+                                handleMessage(textBuffer.toString());
+                                textBuffer.setLength(0);
+                            }
+                            return WebSocket.Listener.super.onText(webSocket, data, last);
+                        }
+
+                        @Override
+                        public CompletionStage<?> onClose(WebSocket webSocket, int statusCode, String reason) {
+                            ws = null;
+                            return WebSocket.Listener.super.onClose(webSocket, statusCode, reason);
+                        }
+
+                        @Override
+                        public void onError(WebSocket webSocket, Throwable error) {
+                            if (!authFuture.isDone()) authFuture.completeExceptionally(error);
+                        }
+                    });
+        } catch (Exception e) {
+            authFuture.completeExceptionally(e);
+        }
+        return authFuture;
+    }
+
+    public void disconnect() {
+        if (ws != null) {
+            ws.sendClose(WebSocket.NORMAL_CLOSURE, "Bye");
+            ws = null;
+        }
+    }
+
+    private void handleMessage(String message) {
+        try {
+            JsonObject json = JsonParser.parseString(message).getAsJsonObject();
+            int op = json.get("op").getAsInt();
+            JsonObject d = json.has("d") && json.get("d").isJsonObject()
+                    ? json.getAsJsonObject("d") : new JsonObject();
+
+            if (op == 0) {          // Hello — cần xác thực
+                JsonObject auth = d.has("authentication") ? d.getAsJsonObject("authentication") : null;
+                sendIdentify(auth);
+            } else if (op == 2) {   // Identified — xác thực thành công
+                authFuture.complete(null);
+            } else if (op == 7) {   // RequestResponse
+                String reqId = d.get("requestId").getAsString();
+                CompletableFuture<JsonObject> future = pendingRequests.remove(reqId);
+                if (future != null) {
+                    JsonObject status = d.getAsJsonObject("requestStatus");
+                    if (status.get("result").getAsBoolean()) {
+                        JsonObject responseData = d.has("responseData") && d.get("responseData").isJsonObject()
+                                ? d.getAsJsonObject("responseData") : new JsonObject();
+                        future.complete(responseData);
+                    } else {
+                        String code = status.has("code") ? status.get("code").getAsString() : "UNKNOWN";
+                        String comment = status.has("comment") ? status.get("comment").getAsString() : "";
+                        future.completeExceptionally(new RuntimeException(code + (comment.isEmpty() ? "" : ": " + comment)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.accept("[OBS WS] Parse error: " + e.getMessage());
+        }
+    }
+
+    private void sendIdentify(JsonObject authReq) {
+        try {
+            JsonObject payload = new JsonObject();
+            payload.addProperty("op", 1);
+            JsonObject d = new JsonObject();
+            d.addProperty("rpcVersion", 1);
+
+            if (authReq != null && !password.isEmpty()) {
+                String challenge = authReq.get("challenge").getAsString();
+                String salt = authReq.get("salt").getAsString();
+
+                MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+                String passSalt = Base64.getEncoder().encodeToString(
+                        sha256.digest((password + salt).getBytes(StandardCharsets.UTF_8)));
+                sha256.reset();
+                String authStr = Base64.getEncoder().encodeToString(
+                        sha256.digest((passSalt + challenge).getBytes(StandardCharsets.UTF_8)));
+                d.addProperty("authentication", authStr);
+            }
+
+            payload.add("d", d);
+            if (ws != null) ws.sendText(payload.toString(), true);
+        } catch (Exception e) {
+            authFuture.completeExceptionally(e);
+        }
+    }
+
+    private CompletableFuture<JsonObject> sendRequest(String requestType, JsonObject requestData) {
+        if (ws == null) return CompletableFuture.failedFuture(
+                new RuntimeException("Mat ket noi OBS WebSocket — OBS co dang mo khong?"));
+
+        String reqId = UUID.randomUUID().toString();
+        CompletableFuture<JsonObject> future = new CompletableFuture<>();
+        pendingRequests.put(reqId, future);
+
+        JsonObject payload = new JsonObject();
+        payload.addProperty("op", 6);
+        JsonObject d = new JsonObject();
+        d.addProperty("requestType", requestType);
+        d.addProperty("requestId", reqId);
+        if (requestData != null) d.add("requestData", requestData);
+        payload.add("d", d);
+
+        ws.sendText(payload.toString(), true);
+        return future;
+    }
+
+    // ── Scene / Source helpers ────────────────────────────────────────────────
+
+    public CompletableFuture<String> getCurrentScene() {
+        return sendRequest("GetCurrentProgramScene", null)
+                .thenApply(res -> res.get("currentProgramSceneName").getAsString());
+    }
+
+    public CompletableFuture<Boolean> sourceExists(String scene, String source) {
+        JsonObject req = new JsonObject();
+        req.addProperty("sceneName", scene);
+        req.addProperty("sourceName", source);
+        return sendRequest("GetSceneItemId", req)
+                .thenApply(res -> true)
+                .exceptionally(e -> false);
+    }
+
+    /**
+     * Tạo mới một Media Source trỏ vào RTSP URL.
+     *
+     * FIX BUG 2: Thêm looping + reconnect_delay_sec để OBS tự reconnect
+     * khi stream vừa bắt đầu hoặc bị ngắt tạm thời.
+     */
+    public CompletableFuture<Void> addRtspSource(String scene, String source, String url) {
+        JsonObject req = new JsonObject();
+        req.addProperty("sceneName", scene);
+        req.addProperty("inputName", source);
+        req.addProperty("inputKind", "ffmpeg_source");
+
+        JsonObject settings = new JsonObject();
+        settings.addProperty("input", url);
+        settings.addProperty("is_local_file", false);
+        settings.addProperty("hw_decode", false);
+        settings.addProperty("clear_on_media_end", false);
+        settings.addProperty("restart_on_activation", true);
+        // ── FIX: OBS tự thử lại mỗi 2 giây nếu stream chưa sẵn sàng ──
+        settings.addProperty("looping", true);
+        settings.addProperty("reconnect_delay_sec", 2);
+
+        req.add("inputSettings", settings);
+        return sendRequest("CreateInput", req).thenApply(res -> null);
+    }
+
+    /**
+     * Cập nhật URL cho source đã tồn tại (dùng khi restart stream).
+     */
+    public CompletableFuture<Void> updateRtspSource(String source, String url) {
+        JsonObject req = new JsonObject();
+        req.addProperty("inputName", source);
+
+        JsonObject settings = new JsonObject();
+        settings.addProperty("input", url);
+        settings.addProperty("is_local_file", false);
+        settings.addProperty("clear_on_media_end", false);
+        settings.addProperty("restart_on_activation", true);
+        settings.addProperty("looping", true);
+        settings.addProperty("reconnect_delay_sec", 2);
+
+        req.add("inputSettings", settings);
+        return sendRequest("SetInputSettings", req).thenApply(res -> null);
+    }
+
+    /**
+     * Trigger OBS restart media source để nó reconnect RTSP ngay lập tức.
+     * Gọi khi source đã có sẵn và cần kéo lại stream mới.
+     */
+    public CompletableFuture<Void> refreshMediaSource(String source) {
+        JsonObject req = new JsonObject();
+        req.addProperty("inputName", source);
+        return sendRequest("TriggerMediaInputAction", buildMediaAction(source, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_RESTART"))
+                .<Void>thenApply(res -> null)
+                .exceptionally(e -> {
+                    // TriggerMediaInputAction có thể không được support ở OBS cũ — bỏ qua
+                    logger.accept("[OBS] refreshMediaSource fallback: " + e.getMessage());
+                    return null;
+                });
+    }
+
+    private JsonObject buildMediaAction(String source, String action) {
+        JsonObject req = new JsonObject();
+        req.addProperty("inputName", source);
+        req.addProperty("mediaAction", action);
+        return req;
+    }
+
+    // ── Virtual Camera ────────────────────────────────────────────────────────
+
+    public CompletableFuture<Boolean> isVirtualCamActive() {
+        return sendRequest("GetVirtualCamStatus", null)
+                .thenApply(res -> res.get("outputActive").getAsBoolean());
+    }
+
+    /**
+     * Bật hoặc tắt Virtual Camera.
+     * Chỉ gửi lệnh toggle nếu trạng thái hiện tại khác với mong muốn.
+     */
+    public CompletableFuture<Void> setVirtualCamera(boolean active) {
+        return isVirtualCamActive().thenCompose(isActive -> {
+            if (isActive == active) return CompletableFuture.completedFuture(null);
+            return sendRequest("ToggleVirtualCam", null).thenApply(res -> null);
+        });
+    }
+}
+</file>
+
+<file path="src/main/resources/uet/vnu/edu/scrcpy/dashboard.fxml">
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:id="root_pane" stylesheets="@theme.css"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="uet.vnu.edu.scrcpy.Controller">
+    <left>
+        <VBox fx:id="main_panel" spacing="12" styleClass="glass-panel" prefWidth="860"
+              BorderPane.alignment="TOP_LEFT">
+            <BorderPane.margin><Insets top="14" left="14" bottom="14" right="14"/></BorderPane.margin>
+            <padding><Insets top="16" right="18" bottom="16" left="18"/></padding>
+
+            <!-- ═══════════════════════════════════════════
+                 HEADER: Status pill + device info text
+            ═══════════════════════════════════════════ -->
+            <HBox spacing="18" alignment="CENTER_LEFT">
+
+                <!-- Status + bitrate pill -->
+                <VBox styleClass="status-pill" alignment="CENTER" spacing="2" minWidth="130">
+                    <HBox alignment="CENTER" spacing="8">
+                        <Label fx:id="lbl_status" text="READY" styleClass="status-value"/>
+                    </HBox>
+                    <Label fx:id="lbl_bitrate_display" text="8 Mbps" styleClass="status-sub"/>
+                </VBox>
+
+                <!-- Divider -->
+                <Separator orientation="VERTICAL" prefHeight="50"/>
+
+                <!-- Device info as plain text lines -->
+                <VBox spacing="3" HBox.hgrow="ALWAYS">
+                    <Label text="Scrcpy v3.3.4 · ADB / Custom Driver" styleClass="info-line-dim"/>
+                    <HBox spacing="6" alignment="CENTER_LEFT">
+                        <Label text="Device:" styleClass="info-line-dim"/>
+                        <Label fx:id="lbl_device_model" text="Detecting..." styleClass="info-line-bold"/>
+                    </HBox>
+                    <HBox spacing="16" alignment="CENTER_LEFT">
+                        <Label text="🔋" styleClass="info-icon"/>
+                        <Label fx:id="lbl_battery" text="--%" styleClass="info-stat-green"/>
+                        <Label text="🌡" styleClass="info-icon"/>
+                        <Label fx:id="lbl_cpu_temp" text="-- °C" styleClass="info-stat-orange"/>
+                        <Label text="💾" styleClass="info-icon"/>
+                        <Label fx:id="lbl_ram_usage" text="-- MB" styleClass="info-stat-purple"/>
+                    </HBox>
+                </VBox>
+
+            </HBox>
+
+            <Separator/>
+
+            <!-- ═══════════════════════════════════════════
+                 TABS
+            ═══════════════════════════════════════════ -->
+            <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="NEVER"
+                     style="-fx-background-color: transparent;">
+                <tabs>
+
+                    <!-- ─── Capture Settings ─── -->
+                    <Tab text="⚙ Capture">
+                        <GridPane hgap="20" vgap="11" style="-fx-padding: 14 0 4 0;">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="90" halignment="RIGHT"/>
+                                <ColumnConstraints prefWidth="200" hgrow="SOMETIMES"/>
+                                <ColumnConstraints minWidth="80" halignment="RIGHT"/>
+                                <ColumnConstraints prefWidth="200" hgrow="SOMETIMES"/>
+                            </columnConstraints>
+
+                            <Label text="Source" styleClass="grid-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="src_type" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+
+                            <Label text="Bitrate" styleClass="grid-label" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                            <HBox spacing="8" alignment="CENTER_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="3">
+                                <Slider fx:id="bitrate_slider" min="1" max="100" value="8" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <TextField fx:id="bitrate_input" text="8" prefWidth="46" alignment="CENTER" styleClass="compact-input"/>
+                            </HBox>
+
+                            <Label fx:id="label_lens" text="Lens" styleClass="grid-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="cam_list" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+
+                            <Label text="FPS" styleClass="grid-label" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                            <ComboBox fx:id="fps_list" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS"/>
+
+                            <Label text="Resolution" styleClass="grid-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="res_list" maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+
+                            <Label text="Orientation" styleClass="grid-label" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                            <ComboBox fx:id="orientation_list" maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS"/>
+                        </GridPane>
+                    </Tab>
+
+                    <!-- ─── Device Controls ─── -->
+                    <Tab text="🎮 Controls">
+                        <VBox spacing="10" style="-fx-padding: 14 0 4 0;">
+
+                            <!-- Navigation row -->
+                            <Label text="Navigation" styleClass="ctrl-section-label"/>
+                            <HBox spacing="8">
+                                <Button onAction="#act_home"   text="🏠 Home"    styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_back"   text="🔙 Back"    styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_switch" text="🗂 Recents" styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            </HBox>
+
+                            <!-- Volume / Power row -->
+                            <Label text="Hardware Keys" styleClass="ctrl-section-label"/>
+                            <HBox spacing="8">
+                                <Button onAction="#act_vol_up"   text="🔊 Vol +"  styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_vol_down" text="🔉 Vol −"  styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_power"    text="⏻ Power"   styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            </HBox>
+
+                            <!-- UI / Screen row -->
+                            <Label text="Screen &amp; Notifications" styleClass="ctrl-section-label"/>
+                            <HBox spacing="8">
+                                <Button onAction="#act_rotate"        text="🔄 Rotate"        styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_expand_notif"  text="🔔 Notifications" styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#act_collapse"      text="⬆ Collapse"       styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                <Button onAction="#handle_screenshot" text="📸 Screenshot"    styleClass="btn-ctrl" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            </HBox>
+
+                        </VBox>
+                    </Tab>
+
+                    <!-- ─── Theme & UI ─── -->
+                    <Tab text="🎨 Theme">
+                        <GridPane hgap="20" vgap="14" style="-fx-padding: 14 0 4 0;">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="110" halignment="RIGHT"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+
+                            <Label text="Corner Radius" styleClass="grid-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <Slider fx:id="radius_slider" min="0" max="50" value="10" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                            <Label text="Button Color" styleClass="grid-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <ColorPicker fx:id="btn_color_picker" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="Panel Opacity" styleClass="grid-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <Slider fx:id="opacity_slider" min="0.1" max="1.0" value="0.85" maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                            <Label text="Background" styleClass="grid-label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <Button onAction="#change_waifu" text="Browse Image…" styleClass="btn-ctrl" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                        </GridPane>
+                    </Tab>
+
+                </tabs>
+            </TabPane>
+
+            <!-- ═══════════════════════════════════════════
+                 BOTTOM BAR: checkboxes + action buttons
+            ═══════════════════════════════════════════ -->
+            <VBox spacing="10" styleClass="bottom-bar">
+
+                <!-- Row 1: Toggles + Action buttons -->
+                <HBox spacing="0" alignment="CENTER_LEFT">
+                    <!-- Toggles -->
+                    <HBox spacing="16" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                        <CheckBox fx:id="audio_toggle"  text="Audio"    selected="true" styleClass="grid-label"/>
+                        <CheckBox fx:id="always_on_top" text="On Top"                   styleClass="grid-label"/>
+                        <CheckBox fx:id="stay_awake"    text="No Sleep"                 styleClass="grid-label"/>
+                        <CheckBox fx:id="record_toggle" text="Record"                   styleClass="grid-label"/>
+                    </HBox>
+
+                    <!-- Action buttons -->
+                    <HBox spacing="10" alignment="CENTER_RIGHT">
+                        <Button fx:id="btn_toggle_screen" onAction="#toggle_screen" text="⏾ Screen"  styleClass="btn-action-ghost"/>
+                        <Button fx:id="btn_start"         onAction="#handle_start"  text="▶ Launch"  styleClass="btn-action-primary"/>
+                        <Button fx:id="btn_stop"          onAction="#handle_stop"   text="⏹ Stop"    styleClass="btn-action-stop"/>
+                    </HBox>
+                </HBox>
+
+                <!-- Row 2: Virtual Cam toggle + mode selector -->
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <CheckBox fx:id="vcam_toggle" text="🎥 Virtual Cam" styleClass="grid-label"/>
+                    <ComboBox fx:id="vcam_mode" prefWidth="200" styleClass="combo-box"/>
+                    <Label text="(OBS phải đang Start Virtual Camera trước)" styleClass="info-line-dim"/>
+                </HBox>
+
+            </VBox>
+
+            <!-- ═══════════════════════════════════════════
+                 LOG CONSOLE
+            ═══════════════════════════════════════════ -->
+            <TextArea fx:id="log_area" VBox.vgrow="ALWAYS" editable="false"
+                      styleClass="log-console" prefHeight="160"/>
+
+        </VBox>
+    </left>
+</BorderPane>
+</file>
+
+<file path="src/main/resources/uet/vnu/edu/scrcpy/theme.css">
+/* ═══════════════════════════════════════════════════════
+   CrystalScrcpy – Aoi Edition  |  theme.css
+   Aesthetic: soft glass · pastel cherry · clean type
+═══════════════════════════════════════════════════════ */
+
+/* ── Reset focus glow ───────────────────────────────── */
+* {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* ── Root / window background ───────────────────────── */
+.root {
+    -fx-background-image: url('bg.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-font-family: "Segoe UI", "Yu Gothic UI", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* ── Main glass panel ───────────────────────────────── */
+.glass-panel {
+    -fx-background-color: rgba(255, 255, 255, 0.82);
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: rgba(255, 180, 210, 0.55);
+    -fx-border-width: 1.2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 18, 0, 0, 6);
+}
+
+/* ══════════════════════════════════════════════════════
+   HEADER AREA
+══════════════════════════════════════════════════════ */
+
+/* Status pill */
+.status-pill {
+    -fx-background-color: rgba(255, 220, 235, 0.75);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: rgba(255, 160, 195, 0.6);
+    -fx-border-width: 1;
+    -fx-padding: 8 16 8 16;
+}
+
+.status-value {
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #2288ee;
+}
+
+.status-sub {
+    -fx-font-size: 11px;
+    -fx-text-fill: #8899bb;
+}
+
+/* Device info text lines */
+.info-line-dim {
+    -fx-text-fill: #888899;
+    -fx-font-size: 11.5px;
+}
+
+.info-line-bold {
+    -fx-text-fill: #333344;
+    -fx-font-weight: bold;
+    -fx-font-size: 12.5px;
+}
+
+.info-icon {
+    -fx-font-size: 12px;
+}
+
+.info-stat-green  { -fx-font-weight: bold; -fx-text-fill: #22aa44; -fx-font-size: 12px; }
+.info-stat-orange { -fx-font-weight: bold; -fx-text-fill: #ee6600; -fx-font-size: 12px; }
+.info-stat-purple { -fx-font-weight: bold; -fx-text-fill: #8833cc; -fx-font-size: 12px; }
+
+/* ══════════════════════════════════════════════════════
+   TAB PANE
+══════════════════════════════════════════════════════ */
+
+.tab-pane {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-area {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 6 0;
+}
+
+.tab-pane .headers-region        { -fx-background-color: transparent; }
+.tab-pane .tab-header-background { -fx-background-color: transparent; -fx-opacity: 0; }
+
+.tab-pane .tab {
+    -fx-background-color: rgba(255, 255, 255, 0.55);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: rgba(255, 170, 205, 0.5);
+    -fx-border-width: 1;
+    -fx-padding: 5 16 5 16;
+    -fx-cursor: hand;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: rgba(255, 175, 210, 0.90);
+    -fx-border-color: #ff99cc;
+    -fx-effect: dropshadow(gaussian, rgba(255, 140, 195, 0.45), 7, 0, 0, 2);
+}
+
+.tab-pane .tab .tab-label         { -fx-text-fill: #666677; -fx-font-weight: bold; }
+.tab-pane .tab:selected .tab-label { -fx-text-fill: #ffffff; }
+
+/* ══════════════════════════════════════════════════════
+   FORM ELEMENTS
+══════════════════════════════════════════════════════ */
+
+.grid-label {
+    -fx-text-fill: #556677;
+    -fx-font-size: 12.5px;
+}
+
+.compact-input {
+    -fx-background-color: rgba(255,255,255,0.75);
+    -fx-border-color: rgba(200,180,210,0.7);
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-alignment: center;
+    -fx-font-size: 12px;
+}
+
+.combo-box {
+    -fx-background-color: rgba(255,255,255,0.75);
+    -fx-border-color: rgba(200,180,210,0.65);
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.combo-box:hover {
+    -fx-border-color: #ff99cc;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: rgba(255,245,250,0.97);
+    -fx-border-color: #ffb3d9;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.slider .track {
+    -fx-background-color: linear-gradient(to right, rgba(255,160,200,0.6), rgba(180,140,220,0.5));
+    -fx-background-radius: 4;
+}
+
+.slider .thumb {
+    -fx-background-color: #ff99cc;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(255,120,180,0.5), 4, 0, 0, 1);
+}
+
+/* ══════════════════════════════════════════════════════
+   DEVICE CONTROLS TAB
+══════════════════════════════════════════════════════ */
+
+.ctrl-section-label {
+    -fx-text-fill: #aab0be;
+    -fx-font-size: 10.5px;
+    -fx-font-weight: bold;
+    -fx-padding: 2 0 0 2;
+}
+
+.btn-ctrl {
+    -fx-background-color: rgba(255, 240, 248, 0.85);
+    -fx-border-color: rgba(255, 170, 205, 0.65);
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-padding: 9 6 9 6;
+    -fx-font-size: 12px;
+    -fx-text-fill: #445566;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+
+.btn-ctrl:hover {
+    -fx-background-color: rgba(255, 200, 228, 0.90);
+    -fx-border-color: #ff88bb;
+    -fx-effect: dropshadow(gaussian, rgba(255,140,190,0.3), 6, 0, 0, 1);
+}
+
+.btn-ctrl:pressed {
+    -fx-background-color: rgba(255, 170, 210, 0.95);
+    -fx-scale-y: 0.96;
+}
+
+/* ══════════════════════════════════════════════════════
+   BOTTOM BAR
+══════════════════════════════════════════════════════ */
+
+.bottom-bar {
+    -fx-background-color: rgba(255, 245, 250, 0.6);
+    -fx-border-color: rgba(220, 200, 215, 0.5);
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 10 14 10 14;
+}
+
+.btn-action-primary {
+    -fx-background-color: linear-gradient(to bottom, #ff9ec8, #ee77b0);
+    -fx-border-color: #dd66a0;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-padding: 9 22 9 22;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(238,100,165,0.4), 8, 0, 0, 2);
+}
+
+.btn-action-primary:hover {
+    -fx-background-color: linear-gradient(to bottom, #ffb0d4, #ff88be);
+    -fx-effect: dropshadow(gaussian, rgba(238,100,165,0.6), 12, 0, 0, 3);
+}
+
+.btn-action-stop {
+    -fx-background-color: rgba(255, 235, 240, 0.9);
+    -fx-border-color: rgba(220, 130, 150, 0.7);
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-padding: 9 22 9 22;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-text-fill: #cc3355;
+    -fx-cursor: hand;
+}
+
+.btn-action-stop:hover {
+    -fx-background-color: rgba(255, 210, 220, 0.95);
+    -fx-border-color: #cc3355;
+    -fx-effect: dropshadow(gaussian, rgba(200,50,80,0.25), 6, 0, 0, 1);
+}
+
+.btn-action-ghost {
+    -fx-background-color: rgba(240, 240, 248, 0.7);
+    -fx-border-color: rgba(190, 185, 210, 0.6);
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-padding: 9 16 9 16;
+    -fx-font-size: 12px;
+    -fx-text-fill: #667788;
+    -fx-cursor: hand;
+}
+
+.btn-action-ghost:hover {
+    -fx-background-color: rgba(220, 218, 235, 0.85);
+    -fx-border-color: #aab0cc;
+}
+
+/* Legacy compat — kept for any btn-wibu reference in Theme tab */
+.btn-wibu {
+    -fx-background-color: rgba(255, 182, 193, 0.95);
+    -fx-border-color: #ff99cc;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-padding: 9 20 9 20;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-text-fill: #ffffff;
+}
+
+.btn-wibu:hover {
+    -fx-background-color: #ff99cc;
+}
+
+/* ══════════════════════════════════════════════════════
+   LOG CONSOLE
+══════════════════════════════════════════════════════ */
+
+.log-console {
+    -fx-control-inner-background: rgba(248, 242, 250, 0.7);
+    -fx-font-family: "Consolas", "Cascadia Code", monospace;
+    -fx-font-size: 11.5px;
+    -fx-text-fill: #334455;
+    -fx-border-color: rgba(200, 175, 210, 0.6);
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+/* ══════════════════════════════════════════════════════
+   SEPARATOR
+══════════════════════════════════════════════════════ */
+
+.separator .line {
+    -fx-border-color: rgba(210, 185, 210, 0.45);
+    -fx-border-width: 1;
+}
+</file>
+
+</files>

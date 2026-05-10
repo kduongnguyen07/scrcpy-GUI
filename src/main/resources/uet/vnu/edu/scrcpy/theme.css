@@ -1,89 +1,294 @@
+/* ═══════════════════════════════════════════════════════
+   CrystalScrcpy – Aoi Edition  |  theme.css
+   Aesthetic: soft glass · pastel cherry · clean type
+═══════════════════════════════════════════════════════ */
+
+/* ── Reset focus glow ───────────────────────────────── */
 * {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
+
+/* ── Root / window background ───────────────────────── */
 .root {
     -fx-background-image: url('bg.png');
     -fx-background-size: cover;
     -fx-background-position: center center;
-    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-family: "Segoe UI", "Yu Gothic UI", sans-serif;
+    -fx-font-size: 13px;
 }
+
+/* ── Main glass panel ───────────────────────────────── */
 .glass-panel {
-    -fx-background-color: rgba(255, 255, 255, 0.85);
-    -fx-background-radius: 10;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);
+    -fx-background-color: rgba(255, 255, 255, 0.82);
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: rgba(255, 180, 210, 0.55);
+    -fx-border-width: 1.2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 18, 0, 0, 6);
 }
+
+/* ══════════════════════════════════════════════════════
+   HEADER AREA
+══════════════════════════════════════════════════════ */
+
+/* Status pill */
+.status-pill {
+    -fx-background-color: rgba(255, 220, 235, 0.75);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: rgba(255, 160, 195, 0.6);
+    -fx-border-width: 1;
+    -fx-padding: 8 16 8 16;
+}
+
+.status-value {
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #2288ee;
+}
+
+.status-sub {
+    -fx-font-size: 11px;
+    -fx-text-fill: #8899bb;
+}
+
+/* Device info text lines */
+.info-line-dim {
+    -fx-text-fill: #888899;
+    -fx-font-size: 11.5px;
+}
+
+.info-line-bold {
+    -fx-text-fill: #333344;
+    -fx-font-weight: bold;
+    -fx-font-size: 12.5px;
+}
+
+.info-icon {
+    -fx-font-size: 12px;
+}
+
+.info-stat-green  { -fx-font-weight: bold; -fx-text-fill: #22aa44; -fx-font-size: 12px; }
+.info-stat-orange { -fx-font-weight: bold; -fx-text-fill: #ee6600; -fx-font-size: 12px; }
+.info-stat-purple { -fx-font-weight: bold; -fx-text-fill: #8833cc; -fx-font-size: 12px; }
+
+/* ══════════════════════════════════════════════════════
+   TAB PANE
+══════════════════════════════════════════════════════ */
+
 .tab-pane {
     -fx-background-color: transparent;
 }
+
 .tab-pane .tab-header-area {
     -fx-background-color: transparent;
-    -fx-padding: 0 0 15 0;
+    -fx-padding: 0 0 6 0;
 }
-.tab-pane .headers-region {
-    -fx-background-color: transparent;
-}
-.tab-pane .tab-header-background {
-    -fx-background-color: transparent;
-    -fx-opacity: 0;
-}
+
+.tab-pane .headers-region        { -fx-background-color: transparent; }
+.tab-pane .tab-header-background { -fx-background-color: transparent; -fx-opacity: 0; }
+
 .tab-pane .tab {
-    -fx-background-color: rgba(255, 255, 255, 0.6);
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
-    -fx-border-color: #ffb3d9;
-    -fx-border-width: 1.5;
-    -fx-padding: 6 20 6 20;
+    -fx-background-color: rgba(255, 255, 255, 0.55);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: rgba(255, 170, 205, 0.5);
+    -fx-border-width: 1;
+    -fx-padding: 5 16 5 16;
     -fx-cursor: hand;
 }
+
 .tab-pane .tab:selected {
-    -fx-background-color: rgba(255, 182, 193, 0.95);
+    -fx-background-color: rgba(255, 175, 210, 0.90);
     -fx-border-color: #ff99cc;
-    -fx-effect: dropshadow(gaussian, rgba(255, 153, 204, 0.6), 8, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(255, 140, 195, 0.45), 7, 0, 0, 2);
 }
-.tab-pane .tab .tab-label {
-    -fx-text-fill: #555555;
-    -fx-font-weight: bold;
+
+.tab-pane .tab .tab-label         { -fx-text-fill: #666677; -fx-font-weight: bold; }
+.tab-pane .tab:selected .tab-label { -fx-text-fill: #ffffff; }
+
+/* ══════════════════════════════════════════════════════
+   FORM ELEMENTS
+══════════════════════════════════════════════════════ */
+
+.grid-label {
+    -fx-text-fill: #556677;
+    -fx-font-size: 12.5px;
 }
-.tab-pane .tab:selected .tab-label {
-    -fx-text-fill: #ffffff;
-}
-.big-block {
-    -fx-background-color: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,230,240,0.9));
-    -fx-border-color: #ffb3d9;
+
+.compact-input {
+    -fx-background-color: rgba(255,255,255,0.75);
+    -fx-border-color: rgba(200,180,210,0.7);
     -fx-border-radius: 5;
     -fx-background-radius: 5;
+    -fx-alignment: center;
+    -fx-font-size: 12px;
 }
-.block-title {
+
+.combo-box {
+    -fx-background-color: rgba(255,255,255,0.75);
+    -fx-border-color: rgba(200,180,210,0.65);
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.combo-box:hover {
+    -fx-border-color: #ff99cc;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: rgba(255,245,250,0.97);
+    -fx-border-color: #ffb3d9;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.slider .track {
+    -fx-background-color: linear-gradient(to right, rgba(255,160,200,0.6), rgba(180,140,220,0.5));
+    -fx-background-radius: 4;
+}
+
+.slider .thumb {
+    -fx-background-color: #ff99cc;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(255,120,180,0.5), 4, 0, 0, 1);
+}
+
+/* ══════════════════════════════════════════════════════
+   DEVICE CONTROLS TAB
+══════════════════════════════════════════════════════ */
+
+.ctrl-section-label {
+    -fx-text-fill: #aab0be;
+    -fx-font-size: 10.5px;
     -fx-font-weight: bold;
-    -fx-text-fill: #666666;
+    -fx-padding: 2 0 0 2;
+}
+
+.btn-ctrl {
+    -fx-background-color: rgba(255, 240, 248, 0.85);
+    -fx-border-color: rgba(255, 170, 205, 0.65);
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-padding: 9 6 9 6;
+    -fx-font-size: 12px;
+    -fx-text-fill: #445566;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+
+.btn-ctrl:hover {
+    -fx-background-color: rgba(255, 200, 228, 0.90);
+    -fx-border-color: #ff88bb;
+    -fx-effect: dropshadow(gaussian, rgba(255,140,190,0.3), 6, 0, 0, 1);
+}
+
+.btn-ctrl:pressed {
+    -fx-background-color: rgba(255, 170, 210, 0.95);
+    -fx-scale-y: 0.96;
+}
+
+/* ══════════════════════════════════════════════════════
+   BOTTOM BAR
+══════════════════════════════════════════════════════ */
+
+.bottom-bar {
+    -fx-background-color: rgba(255, 245, 250, 0.6);
+    -fx-border-color: rgba(220, 200, 215, 0.5);
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 10 14 10 14;
+}
+
+.btn-action-primary {
+    -fx-background-color: linear-gradient(to bottom, #ff9ec8, #ee77b0);
+    -fx-border-color: #dd66a0;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-padding: 9 22 9 22;
+    -fx-font-weight: bold;
     -fx-font-size: 13px;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(238,100,165,0.4), 8, 0, 0, 2);
 }
-.info-grid {
-    -fx-background-color: transparent;
+
+.btn-action-primary:hover {
+    -fx-background-color: linear-gradient(to bottom, #ffb0d4, #ff88be);
+    -fx-effect: dropshadow(gaussian, rgba(238,100,165,0.6), 12, 0, 0, 3);
 }
-.grid-label {
-    -fx-text-fill: #555555;
-}
-.grid-value {
+
+.btn-action-stop {
+    -fx-background-color: rgba(255, 235, 240, 0.9);
+    -fx-border-color: rgba(220, 130, 150, 0.7);
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-padding: 9 22 9 22;
     -fx-font-weight: bold;
-    -fx-text-fill: #222222;
+    -fx-font-size: 13px;
+    -fx-text-fill: #cc3355;
+    -fx-cursor: hand;
 }
+
+.btn-action-stop:hover {
+    -fx-background-color: rgba(255, 210, 220, 0.95);
+    -fx-border-color: #cc3355;
+    -fx-effect: dropshadow(gaussian, rgba(200,50,80,0.25), 6, 0, 0, 1);
+}
+
+.btn-action-ghost {
+    -fx-background-color: rgba(240, 240, 248, 0.7);
+    -fx-border-color: rgba(190, 185, 210, 0.6);
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-padding: 9 16 9 16;
+    -fx-font-size: 12px;
+    -fx-text-fill: #667788;
+    -fx-cursor: hand;
+}
+
+.btn-action-ghost:hover {
+    -fx-background-color: rgba(220, 218, 235, 0.85);
+    -fx-border-color: #aab0cc;
+}
+
+/* Legacy compat — kept for any btn-wibu reference in Theme tab */
 .btn-wibu {
     -fx-background-color: rgba(255, 182, 193, 0.95);
     -fx-border-color: #ff99cc;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-padding: 10 30;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-padding: 9 20 9 20;
     -fx-font-weight: bold;
     -fx-cursor: hand;
     -fx-text-fill: #ffffff;
 }
+
 .btn-wibu:hover {
     -fx-background-color: #ff99cc;
 }
+
+/* ══════════════════════════════════════════════════════
+   LOG CONSOLE
+══════════════════════════════════════════════════════ */
+
 .log-console {
-    -fx-control-inner-background: rgba(255, 255, 255, 0.6);
-    -fx-font-family: "Consolas", monospace;
-    -fx-border-color: #ffb3d9;
+    -fx-control-inner-background: rgba(248, 242, 250, 0.7);
+    -fx-font-family: "Consolas", "Cascadia Code", monospace;
+    -fx-font-size: 11.5px;
+    -fx-text-fill: #334455;
+    -fx-border-color: rgba(200, 175, 210, 0.6);
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+/* ══════════════════════════════════════════════════════
+   SEPARATOR
+══════════════════════════════════════════════════════ */
+
+.separator .line {
+    -fx-border-color: rgba(210, 185, 210, 0.45);
+    -fx-border-width: 1;
 }
